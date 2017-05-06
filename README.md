@@ -1,4 +1,4 @@
-## AgentScript-next Repository
+## AgentScript-experimental Repository
 
 This is a repository for the next version of [AgentScript 1.0](http://agentscript.org), an es6 module based project.
 
