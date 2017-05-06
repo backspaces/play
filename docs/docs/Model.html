@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Model.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="AS.html">
+                  AS.js
+                </a>
+              
+                
+                <a class="source" href="AgentSet.html">
+                  AgentSet.js
+                </a>
+              
+                
+                <a class="source" href="Animator.html">
+                  Animator.js
+                </a>
+              
+                
+                <a class="source" href="AscDataSet.html">
+                  AscDataSet.js
+                </a>
+              
+                
+                <a class="source" href="Color.html">
+                  Color.js
+                </a>
+              
+                
+                <a class="source" href="ColorMap.html">
+                  ColorMap.js
+                </a>
+              
+                
+                <a class="source" href="DataSet.html">
+                  DataSet.js
+                </a>
+              
+                
+                <a class="source" href="DataSetIO.html">
+                  DataSetIO.js
+                </a>
+              
+                
+                <a class="source" href="Link.html">
+                  Link.js
+                </a>
+              
+                
+                <a class="source" href="Links.html">
+                  Links.js
+                </a>
+              
+                
+                <a class="source" href="Model.html">
+                  Model.js
+                </a>
+              
+                
+                <a class="source" href="Mouse.html">
+                  Mouse.js
+                </a>
+              
+                
+                <a class="source" href="OofA.html">
+                  OofA.js
+                </a>
+              
+                
+                <a class="source" href="Patch.html">
+                  Patch.js
+                </a>
+              
+                
+                <a class="source" href="Patches.html">
+                  Patches.js
+                </a>
+              
+                
+                <a class="source" href="RGBADataSet.html">
+                  RGBADataSet.js
+                </a>
+              
+                
+                <a class="source" href="RGBDataSet.html">
+                  RGBDataSet.js
+                </a>
+              
+                
+                <a class="source" href="SpriteSheet.html">
+                  SpriteSheet.js
+                </a>
+              
+                
+                <a class="source" href="Three.html">
+                  Three.js
+                </a>
+              
+                
+                <a class="source" href="Turtle.html">
+                  Turtle.js
+                </a>
+              
+                
+                <a class="source" href="Turtles.html">
+                  Turtles.js
+                </a>
+              
+                
+                <a class="source" href="glx.html">
+                  glx.js
+                </a>
+              
+                
+                <a class="source" href="util.html">
+                  util.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>Model.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> Patches <span class="hljs-keyword">from</span> <span class="hljs-string">'./Patches.js'</span>
+<span class="hljs-keyword">import</span> PatchProto <span class="hljs-keyword">from</span> <span class="hljs-string">'./Patch.js'</span>
+<span class="hljs-keyword">import</span> Turtles <span class="hljs-keyword">from</span> <span class="hljs-string">'./Turtles.js'</span>
+<span class="hljs-keyword">import</span> TurtleProto <span class="hljs-keyword">from</span> <span class="hljs-string">'./Turtle.js'</span>
+<span class="hljs-keyword">import</span> Links <span class="hljs-keyword">from</span> <span class="hljs-string">'./Links.js'</span>
+<span class="hljs-keyword">import</span> LinkProto <span class="hljs-keyword">from</span> <span class="hljs-string">'./Link.js'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>import SpriteSheet from ‘./SpriteSheet.js’</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> Animator <span class="hljs-keyword">from</span> <span class="hljs-string">'./Animator.js'</span>
+<span class="hljs-keyword">import</span> Three <span class="hljs-keyword">from</span> <span class="hljs-string">'./Three.js'</span>
+<span class="hljs-keyword">import</span> util <span class="hljs-keyword">from</span> <span class="hljs-string">'./util.js'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>import * as THREE from ‘../libs/three.min.js’
+import OrbitControls from ‘../libs/threelibs/OrbitControls.js’
+import Stats from ‘../libs/stats.min.js’
+import dat from ‘../libs/dat.gui.min.js’</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>util.toWindow({three: THREE}) // REMIND</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Class Model is the primary interface for modelers, integrating
+all the parts of a model. It also contains NetLogo’s <code>observer</code> methods.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Model</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Static class methods for default settings.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> defaultWorld () {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">patchSize</span>: <span class="hljs-number">13</span>,
+      <span class="hljs-attr">minX</span>: <span class="hljs-number">-16</span>,
+      <span class="hljs-attr">maxX</span>: <span class="hljs-number">16</span>,
+      <span class="hljs-attr">minY</span>: <span class="hljs-number">-16</span>,
+      <span class="hljs-attr">maxY</span>: <span class="hljs-number">16</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>usePatches: true, // REMIND: Use these. Add Drawing? Labels?
+useTurtles: true,
+useLinks: true,</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>static defaultThree () {
+  return {
+    orthoView: false, // ‘Perspective’, ‘Orthographic’
+    clearColor: 0x000000,
+    useAxes: true,
+    useGrid: true,
+    useStats: true,
+    useControls: true,
+    useGUI: true
+  }
+}</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>The Model constructor takes a DOM div and overrides for defaults</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span> (div = document.body,
+               worldOptions = {},
+               rendererOptions = Three.defaultOptions()) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Store and initialize the model’s div and contexts.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.div = util.isString(div) ? <span class="hljs-built_in">document</span>.getElementById(div) : div</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>this.spriteSheet = new SpriteSheet()</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Create this model’s <code>world</code> object</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.world = Model.defaultWorld()
+    <span class="hljs-built_in">Object</span>.assign(<span class="hljs-keyword">this</span>.world, worldOptions)
+    <span class="hljs-keyword">this</span>.setWorld()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Initialize renderer</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.renderer = <span class="hljs-keyword">new</span> rendererOptions.Renderer(<span class="hljs-keyword">this</span>, rendererOptions)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>this.three = Model.defaultThree()
+Object.assign(this.three, threeOptions)
+this.initThree()
+this.initThreeHelpers()</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Create animator to handle draw/step.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.anim = <span class="hljs-keyword">new</span> Animator(<span class="hljs-keyword">this</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Initialize model calling <code>startup</code>, <code>reset</code> .. which calls <code>setup</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.modelReady = <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">this</span>.startup().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>this.reset(); this.setup(); this.modelReady = true</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">this</span>.reset(); <span class="hljs-keyword">this</span>.modelReady = <span class="hljs-literal">true</span>
+    })
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Call fcn(this) when any async</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  whenReady (fcn) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>util.waitPromise(() =&gt; this.modelReady).then(fcn())</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    util.waitOn(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.modelReady, () =&gt; fcn(<span class="hljs-keyword">this</span>))
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Add additional world variables derived from constructor’s <code>worldOptions</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setWorld () {
+    <span class="hljs-keyword">const</span> world = <span class="hljs-keyword">this</span>.world</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>REMIND: change to xPatches, yPatches?</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    world.numX = world.maxX - world.minX + <span class="hljs-number">1</span>
+    world.numY = world.maxY - world.minY + <span class="hljs-number">1</span>
+    world.width = world.numX * world.patchSize
+    world.height = world.numY * world.patchSize
+    world.minXcor = world.minX - <span class="hljs-number">0.5</span>
+    world.maxXcor = world.maxX + <span class="hljs-number">0.5</span>
+    world.minYcor = world.minY - <span class="hljs-number">0.5</span>
+    world.maxYcor = world.maxY + <span class="hljs-number">0.5</span>
+    world.isOnWorld = <span class="hljs-function">(<span class="hljs-params">x, y</span>) =&gt;</span> <span class="hljs-comment">// No braces, is lambda expression</span>
+      (world.minXcor &lt;= x) &amp;&amp; (x &lt;= world.maxXcor) &amp;&amp;
+      (world.minYcor &lt;= y) &amp;&amp; (y &lt;= world.maxYcor)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>createQuad (r, z = 0) { // r is radius of xy quad: [-r,+r], z is quad z
+  const vertices = [-r, -r, z, r, -r, z, r, r, z, -r, r, z]
+  const indices = [0, 1, 2, 0, 2, 3]
+  return {vertices, indices}
+}
+(Re)initialize the model. REMIND: not quite right</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  reset (restart = <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">this</span>.anim.reset()
+    <span class="hljs-keyword">this</span>.setWorld()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>this.three.unitQuad = util.createQuad(this.world.patchSize / 2, 0)
+this.three.unitQuad = util.createQuad(0.5, 0)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.refreshLinks = <span class="hljs-keyword">this</span>.refreshTurtles = <span class="hljs-keyword">this</span>.refreshPatches = <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">this</span>.patches = <span class="hljs-keyword">new</span> Patches(<span class="hljs-keyword">this</span>, PatchProto, <span class="hljs-string">'patches'</span>)
+    <span class="hljs-keyword">this</span>.renderer.initPatchesMesh(<span class="hljs-keyword">this</span>.patches.pixels.ctx.canvas)
+    <span class="hljs-keyword">this</span>.turtles = <span class="hljs-keyword">new</span> Turtles(<span class="hljs-keyword">this</span>, TurtleProto, <span class="hljs-string">'turtles'</span>)
+    <span class="hljs-keyword">this</span>.renderer.initTurtlesMesh()
+    <span class="hljs-keyword">this</span>.links = <span class="hljs-keyword">new</span> Links(<span class="hljs-keyword">this</span>, LinkProto, <span class="hljs-string">'links'</span>)
+    <span class="hljs-keyword">this</span>.renderer.initLinksMesh()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>REMIND: temp
+this.div.appendChild(this.patches.pixels.ctx.canvas)
+document.body.appendChild(this.patches.pixels.ctx.canvas)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.setup()
+    <span class="hljs-keyword">if</span> (restart) <span class="hljs-keyword">this</span>.start()
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <h3 id="user-model-creation">User Model Creation</h3>
+<p>A user’s model is made by subclassing Model and over-riding these
+three abstract methods. <code>super</code> need not be called.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Async function to initialize model resources (images, files).</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">async</span> startup () {} <span class="hljs-comment">// called by constructor.</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>Initialize your model variables and defaults here.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup () {} <span class="hljs-comment">// called by constructor (after startup) or by reset()</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>Update/step your model here</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  step () {} <span class="hljs-comment">// called each step of the animation</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>Start/stop the animation. Return model for chaining.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  start () {
+    util.waitOn(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.modelReady, () =&gt; {
+      <span class="hljs-keyword">this</span>.anim.start()
+    })</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>util.waitPromise(() =&gt; this.modelReady)
+.then(() =&gt; { this.anim.start() })</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+  }
+  stop () { <span class="hljs-keyword">this</span>.anim.stop() }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>Animate once by <code>step(); draw()</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  once () { <span class="hljs-keyword">this</span>.stop(); <span class="hljs-keyword">this</span>.anim.once() } <span class="hljs-comment">// stop is no-op if already stopped</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>Change the world parameters. Requires a reset.
+Resets Patches, Turtles, Links &amp; reinitializes canvases.
+If restart argument is true (default), will restart after resetting.
+resizeWorld (worldOptions, restart = true) {
+  Object.assign(this.world, worldOptions)
+  this.setWorld(this.world)
+  this.reset(restart)
+}</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  draw (force = <span class="hljs-keyword">this</span>.anim.stopped || <span class="hljs-keyword">this</span>.anim.draws === <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">const</span> {scene, camera} = <span class="hljs-keyword">this</span>.renderer
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.div) {
+      <span class="hljs-keyword">if</span> (force || <span class="hljs-keyword">this</span>.refreshPatches) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.patches.length &gt; <span class="hljs-number">0</span>)
+          <span class="hljs-keyword">this</span>.renderer.updatePatchesMesh(<span class="hljs-keyword">this</span>.patches)
+      }
+      <span class="hljs-keyword">if</span> (force || <span class="hljs-keyword">this</span>.refreshTurtles) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.turtles.length &gt; <span class="hljs-number">0</span>)
+          <span class="hljs-keyword">this</span>.renderer.updateTurtlesMesh(<span class="hljs-keyword">this</span>.turtles)
+      }
+      <span class="hljs-keyword">if</span> (force || <span class="hljs-keyword">this</span>.refreshLinks) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.links.length &gt; <span class="hljs-number">0</span>)
+          <span class="hljs-keyword">this</span>.renderer.updateLinksMesh(<span class="hljs-keyword">this</span>.links)
+      }
+
+      <span class="hljs-keyword">this</span>.renderer.renderer.render(scene, camera)
+    }
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.renderer.stats) <span class="hljs-keyword">this</span>.renderer.stats.update()
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>Breeds: create subarrays of Patches, Agentss, Links</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  patchBreeds (breedNames) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> breedName <span class="hljs-keyword">of</span> breedNames.split(<span class="hljs-string">' '</span>)) {
+      <span class="hljs-keyword">this</span>[breedName] = <span class="hljs-keyword">new</span> Patches(<span class="hljs-keyword">this</span>, PatchProto, breedName, <span class="hljs-keyword">this</span>.patches)
+    }
+  }
+  turtleBreeds (breedNames) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> breedName <span class="hljs-keyword">of</span> breedNames.split(<span class="hljs-string">' '</span>)) {
+      <span class="hljs-keyword">this</span>[breedName] = <span class="hljs-keyword">new</span> Turtles(<span class="hljs-keyword">this</span>, TurtleProto, breedName, <span class="hljs-keyword">this</span>.turtles)
+    }
+  }
+  linkBreeds (breedNames) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> breedName <span class="hljs-keyword">of</span> breedNames.split(<span class="hljs-string">' '</span>)) {
+      <span class="hljs-keyword">this</span>[breedName] = <span class="hljs-keyword">new</span> Links(<span class="hljs-keyword">this</span>, LinkProto, breedName, <span class="hljs-keyword">this</span>.links)
+    }
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Model</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

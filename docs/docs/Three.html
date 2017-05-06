@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Three.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="AS.html">
+                  AS.js
+                </a>
+              
+                
+                <a class="source" href="AgentSet.html">
+                  AgentSet.js
+                </a>
+              
+                
+                <a class="source" href="Animator.html">
+                  Animator.js
+                </a>
+              
+                
+                <a class="source" href="AscDataSet.html">
+                  AscDataSet.js
+                </a>
+              
+                
+                <a class="source" href="Color.html">
+                  Color.js
+                </a>
+              
+                
+                <a class="source" href="ColorMap.html">
+                  ColorMap.js
+                </a>
+              
+                
+                <a class="source" href="DataSet.html">
+                  DataSet.js
+                </a>
+              
+                
+                <a class="source" href="DataSetIO.html">
+                  DataSetIO.js
+                </a>
+              
+                
+                <a class="source" href="Link.html">
+                  Link.js
+                </a>
+              
+                
+                <a class="source" href="Links.html">
+                  Links.js
+                </a>
+              
+                
+                <a class="source" href="Model.html">
+                  Model.js
+                </a>
+              
+                
+                <a class="source" href="Mouse.html">
+                  Mouse.js
+                </a>
+              
+                
+                <a class="source" href="OofA.html">
+                  OofA.js
+                </a>
+              
+                
+                <a class="source" href="Patch.html">
+                  Patch.js
+                </a>
+              
+                
+                <a class="source" href="Patches.html">
+                  Patches.js
+                </a>
+              
+                
+                <a class="source" href="RGBADataSet.html">
+                  RGBADataSet.js
+                </a>
+              
+                
+                <a class="source" href="RGBDataSet.html">
+                  RGBDataSet.js
+                </a>
+              
+                
+                <a class="source" href="SpriteSheet.html">
+                  SpriteSheet.js
+                </a>
+              
+                
+                <a class="source" href="Three.html">
+                  Three.js
+                </a>
+              
+                
+                <a class="source" href="Turtle.html">
+                  Turtle.js
+                </a>
+              
+                
+                <a class="source" href="Turtles.html">
+                  Turtles.js
+                </a>
+              
+                
+                <a class="source" href="glx.html">
+                  glx.js
+                </a>
+              
+                
+                <a class="source" href="util.html">
+                  util.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>Three.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> SpriteSheet <span class="hljs-keyword">from</span> <span class="hljs-string">'./SpriteSheet.js'</span>
+<span class="hljs-keyword">import</span> util <span class="hljs-keyword">from</span> <span class="hljs-string">'./util.js'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>import * as THREE from ‘../libs/three.min.js’
+import OrbitControls from ‘../libs/threelibs/OrbitControls.js’
+import Stats from ‘../libs/stats.min.js’
+import dat from ‘../libs/dat.gui.min.js’</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>util.toWindow({three: THREE}) // REMIND</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Three</span> </span>{
+  <span class="hljs-keyword">static</span> defaultOptions () {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">Renderer</span>: Three,      <span class="hljs-comment">// include me in options so Model can instanciate me</span>
+      orthoView: <span class="hljs-literal">false</span>,     <span class="hljs-comment">// 'Perspective', 'Orthographic'</span>
+      clearColor: <span class="hljs-number">0x000000</span>, <span class="hljs-comment">// clear to black</span>
+      useAxes: <span class="hljs-literal">true</span>,        <span class="hljs-comment">// show x,y,z axes</span>
+      useGrid: <span class="hljs-literal">true</span>,        <span class="hljs-comment">// show x,y plane</span>
+      useStats: <span class="hljs-literal">true</span>,       <span class="hljs-comment">// show fps widget</span>
+      useControls: <span class="hljs-literal">true</span>,    <span class="hljs-comment">// activate navigation. REMIND: name of control?</span>
+      useGUI: <span class="hljs-literal">true</span>          <span class="hljs-comment">// activate dat.gui UI</span>
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>The Model constructor takes a DOM div and overrides for defaults</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span> (model, options = {}) {
+    <span class="hljs-keyword">this</span>.model = model
+    <span class="hljs-keyword">this</span>.spriteSheet = <span class="hljs-keyword">new</span> SpriteSheet()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Initialize options</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-built_in">Object</span>.assign(<span class="hljs-keyword">this</span>, Three.defaultOptions) <span class="hljs-comment">// install defaults</span>
+    <span class="hljs-built_in">Object</span>.assign(<span class="hljs-keyword">this</span>, options) <span class="hljs-comment">// override defaults</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.Renderer !== Three)
+      util.error(<span class="hljs-string">'Three ctor: Renderer not Three'</span>, <span class="hljs-keyword">this</span>.renderer)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Initialize Three.js</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.initThree()
+    <span class="hljs-keyword">this</span>.initThreeHelpers()
+
+    <span class="hljs-keyword">this</span>.unitQuad = util.createQuad(<span class="hljs-number">0.5</span>, <span class="hljs-number">0</span>)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>createQuad (r, z = 0) { // r is radius of xy quad: [-r,+r], z is quad z
+  const vertices = [-r, -r, z, r, -r, z, r, r, z, -r, r, z]
+  const indices = [0, 1, 2, 0, 2, 3]
+  return {vertices, indices}
+}
+Init Three.js core: scene, camera, renderer</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  initThree () {
+    <span class="hljs-keyword">const</span> {clientWidth, clientHeight} = <span class="hljs-keyword">this</span>.model.div
+    <span class="hljs-keyword">const</span> {orthoView, clearColor} = <span class="hljs-keyword">this</span>
+    <span class="hljs-keyword">const</span> {width, height} = <span class="hljs-keyword">this</span>.model.world
+    <span class="hljs-keyword">const</span> [halfW, halfH] = [width / <span class="hljs-number">2</span>, height / <span class="hljs-number">2</span>]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>this.spriteSheet.texture = new THREE.CanvasTexture(this.spriteSheet.ctx)
+this.spriteSheet.setTexture(THREE.CanvasTexture)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+    <span class="hljs-keyword">const</span> scene = <span class="hljs-keyword">new</span> THREE.Scene()
+    <span class="hljs-keyword">const</span> camera = orthoView
+      ? <span class="hljs-keyword">new</span> THREE.OrthographicCamera(-halfW, halfW, halfH, -halfH, <span class="hljs-number">1</span>, <span class="hljs-number">1000</span>)
+      : <span class="hljs-keyword">new</span> THREE.PerspectiveCamera(<span class="hljs-number">45</span>, clientWidth / clientHeight, <span class="hljs-number">1</span>, <span class="hljs-number">10000</span>)
+
+    <span class="hljs-keyword">if</span> (orthoView)
+      camera.position.set(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">100</span> * width)
+    <span class="hljs-keyword">else</span>
+      camera.position.set(width, -width, width)
+    camera.up.set(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>)
+
+    <span class="hljs-keyword">const</span> renderer = <span class="hljs-keyword">new</span> THREE.WebGLRenderer()
+    renderer.setPixelRatio(<span class="hljs-built_in">window</span>.devicePixelRatio)
+    renderer.setSize(clientWidth, clientHeight)
+    renderer.setClearColor(clearColor)
+    <span class="hljs-keyword">this</span>.model.div.appendChild(renderer.domElement)
+
+    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'resize'</span>, () =&gt; {
+      <span class="hljs-keyword">const</span> {clientWidth, clientHeight} = <span class="hljs-keyword">this</span>.model.div
+      camera.aspect = clientWidth / clientHeight
+      camera.updateProjectionMatrix()
+      renderer.setSize(clientWidth, clientHeight)
+    })
+
+    <span class="hljs-built_in">Object</span>.assign(<span class="hljs-keyword">this</span>, {scene, camera, renderer})
+  }
+  initThreeHelpers () {
+    <span class="hljs-keyword">const</span> {scene, renderer, camera} = <span class="hljs-keyword">this</span>
+    <span class="hljs-keyword">const</span> {useAxes, useGrid, useControls, useStats, useGUI} = <span class="hljs-keyword">this</span>
+    <span class="hljs-keyword">const</span> {width} = <span class="hljs-keyword">this</span>.model.world
+    <span class="hljs-keyword">const</span> helpers = {}
+
+    <span class="hljs-keyword">if</span> (useAxes) {
+      helpers.axes = <span class="hljs-keyword">new</span> THREE.AxisHelper(<span class="hljs-number">1.5</span> * width / <span class="hljs-number">2</span>)
+      scene.add(helpers.axes)
+    }
+    <span class="hljs-keyword">if</span> (useGrid) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>helpers.grid = new THREE.GridHelper(width, width / patchSize)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      helpers.grid = <span class="hljs-keyword">new</span> THREE.GridHelper(<span class="hljs-number">1.25</span> * width, <span class="hljs-number">10</span>)
+      helpers.grid.rotation.x = THREE.Math.degToRad(<span class="hljs-number">90</span>)
+      scene.add(helpers.grid)
+    }
+    <span class="hljs-keyword">if</span> (useStats) {
+      helpers.stats = <span class="hljs-keyword">new</span> Stats()
+      <span class="hljs-built_in">document</span>.body.appendChild(helpers.stats.dom)
+    }
+    <span class="hljs-keyword">if</span> (useControls) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>helpers.controls = new OrbitControls(camera, renderer.domElement)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      helpers.controls = <span class="hljs-keyword">new</span> THREE.OrbitControls(camera, renderer.domElement)
+    }
+    <span class="hljs-keyword">if</span> (useGUI) {
+      helpers.gui = <span class="hljs-keyword">new</span> dat.GUI()
+    }
+
+    <span class="hljs-built_in">Object</span>.assign(<span class="hljs-keyword">this</span>, helpers)
+  }
+  disposeThreeMesh (mesh) {
+    <span class="hljs-keyword">if</span> (mesh.parent !== <span class="hljs-keyword">this</span>.scene) <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'mesh parent not scene'</span>)
+    mesh.parent.remove(mesh)
+    mesh.geometry.dispose()
+    mesh.material.dispose()
+    <span class="hljs-keyword">if</span> (mesh.material.map) mesh.material.map.dispose()
+  }
+  initPatchesMesh (canvas) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.patchesMesh) <span class="hljs-keyword">this</span>.disposeThreeMesh(<span class="hljs-keyword">this</span>.patchesMesh)
+    <span class="hljs-keyword">const</span> {width, height, numX, numY} = <span class="hljs-keyword">this</span>.model.world</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p><a href="https://goo.gl/HkTuHO">CanvasTexture args:</a>
+canvas, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> texture = <span class="hljs-keyword">new</span> THREE.CanvasTexture(canvas)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>texture.generateMipmaps = false</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    texture.minFilter = THREE.NearestFilter
+    texture.magFilter = THREE.NearestFilter</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>texture.premultiplyAlpha = false</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+    <span class="hljs-keyword">const</span> geometry = <span class="hljs-keyword">new</span> THREE.PlaneGeometry(width, height, numX, numY)
+    geometry.name = <span class="hljs-string">'patches'</span>
+    <span class="hljs-keyword">const</span> material = <span class="hljs-keyword">new</span> THREE.MeshBasicMaterial({
+      <span class="hljs-attr">map</span>: texture, <span class="hljs-attr">shading</span>: THREE.FlatShading, <span class="hljs-attr">side</span>: THREE.DoubleSide</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>, side: THREE.DoubleSide//, wireframe: true</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    })
+    <span class="hljs-keyword">const</span> mesh = <span class="hljs-keyword">this</span>.patchesMesh = <span class="hljs-keyword">new</span> THREE.Mesh(geometry, material)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>mesh.rotation.x = -Math.PI / 2</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.scene.add(mesh)
+  }
+  updatePatchesMesh (patches) {
+    patches.installPixels()
+    <span class="hljs-keyword">this</span>.patchesMesh.material.map.needsUpdate = <span class="hljs-literal">true</span>
+  }
+  initTurtlesMesh () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.turtlesMesh) <span class="hljs-keyword">this</span>.disposeThreeMesh(<span class="hljs-keyword">this</span>.turtlesMesh)
+
+    <span class="hljs-keyword">const</span> texture = <span class="hljs-keyword">new</span> THREE.CanvasTexture(<span class="hljs-keyword">this</span>.spriteSheet.ctx.canvas)
+    <span class="hljs-keyword">this</span>.spriteSheet.texture = texture
+
+    <span class="hljs-keyword">const</span> vertices = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Float32Array</span>(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">const</span> uvs = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Float32Array</span>(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">const</span> indices = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint32Array</span>(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">const</span> geometry = <span class="hljs-keyword">new</span> THREE.BufferGeometry()
+    geometry.addAttribute(<span class="hljs-string">'position'</span>, <span class="hljs-keyword">new</span> THREE.BufferAttribute(vertices, <span class="hljs-number">3</span>))
+    geometry.addAttribute(<span class="hljs-string">'uv'</span>, <span class="hljs-keyword">new</span> THREE.BufferAttribute(uvs, <span class="hljs-number">2</span>))
+    geometry.setIndex(<span class="hljs-keyword">new</span> THREE.BufferAttribute(indices, <span class="hljs-number">1</span>))
+    geometry.name = <span class="hljs-string">'turtles'</span>
+    <span class="hljs-keyword">const</span> material = <span class="hljs-keyword">new</span> THREE.MeshBasicMaterial({
+      <span class="hljs-attr">map</span>: texture, <span class="hljs-attr">alphaTest</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">side</span>: THREE.DoubleSide})
+
+    <span class="hljs-keyword">const</span> mesh = <span class="hljs-keyword">this</span>.turtlesMesh = <span class="hljs-keyword">new</span> THREE.Mesh(geometry, material)
+    <span class="hljs-keyword">this</span>.scene.add(mesh)
+  }
+  updateTurtlesMesh (turtles) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>const turtles = this.turtles</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> { vertices, indices } = <span class="hljs-keyword">this</span>.unitQuad
+    <span class="hljs-keyword">const</span> patchSize = <span class="hljs-keyword">this</span>.model.world.patchSize
+    <span class="hljs-keyword">const</span> mesh = <span class="hljs-keyword">this</span>.turtlesMesh
+    <span class="hljs-keyword">const</span> positionAttrib = mesh.geometry.getAttribute(<span class="hljs-string">'position'</span>)
+    <span class="hljs-keyword">const</span> uvAttrib = mesh.geometry.getAttribute(<span class="hljs-string">'uv'</span>)
+    <span class="hljs-keyword">const</span> indexAttrib = mesh.geometry.getIndex()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>const positions = []</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> positions = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Float32Array</span>(vertices.length * turtles.length)
+    <span class="hljs-keyword">const</span> uvs = []
+    <span class="hljs-keyword">const</span> indexes = []
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; turtles.length; i++) {
+      <span class="hljs-keyword">const</span> turtle = turtles[i]
+      <span class="hljs-keyword">const</span> size = turtle.size <span class="hljs-comment">// * patchSize</span>
+      <span class="hljs-keyword">const</span> theta = turtle.theta
+      <span class="hljs-keyword">const</span> cos = <span class="hljs-built_in">Math</span>.cos(theta)
+      <span class="hljs-keyword">const</span> sin = <span class="hljs-built_in">Math</span>.sin(theta)
+      <span class="hljs-keyword">const</span> offset = i * vertices.length
+
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; vertices.length; j = j + <span class="hljs-number">3</span>) {
+        <span class="hljs-keyword">const</span> x0 = vertices[j]
+        <span class="hljs-keyword">const</span> y0 = vertices[j + <span class="hljs-number">1</span>]
+        <span class="hljs-keyword">const</span> x = turtle.x <span class="hljs-comment">// * patchSize</span>
+        <span class="hljs-keyword">const</span> y = turtle.y <span class="hljs-comment">// * patchSize</span>
+        positions[j + offset] = (size * (x0 * cos - y0 * sin) + x) * patchSize
+        positions[j + offset + <span class="hljs-number">1</span>] = (size * (x0 * sin + y0 * cos) + y) * patchSize
+        positions[j + offset + <span class="hljs-number">2</span>] = turtle.z * patchSize
+      }
+      indexes.push(...indices.map(<span class="hljs-function">(<span class="hljs-params">ix</span>) =&gt;</span> ix + (i * <span class="hljs-number">4</span>))) <span class="hljs-comment">// 4</span>
+      uvs.push(...turtle.sprite.uvs)
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>positionAttrib.setArray(new Float32Array(positions))</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    positionAttrib.setArray(positions)
+    positionAttrib.needsUpdate = <span class="hljs-literal">true</span>
+    uvAttrib.setArray(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Float32Array</span>(uvs))
+    uvAttrib.needsUpdate = <span class="hljs-literal">true</span>
+    indexAttrib.setArray(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint32Array</span>(indexes))
+    indexAttrib.needsUpdate = <span class="hljs-literal">true</span>
+  }
+  initLinksMesh () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.linksMesh) <span class="hljs-keyword">this</span>.disposeThreeMesh(<span class="hljs-keyword">this</span>.linksMesh)
+    <span class="hljs-keyword">const</span> vertices = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Float32Array</span>(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">const</span> colors = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Float32Array</span>(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">const</span> geometry = <span class="hljs-keyword">new</span> THREE.BufferGeometry()
+    geometry.addAttribute(<span class="hljs-string">'position'</span>, <span class="hljs-keyword">new</span> THREE.BufferAttribute(vertices, <span class="hljs-number">3</span>))
+    geometry.addAttribute(<span class="hljs-string">'color'</span>, <span class="hljs-keyword">new</span> THREE.BufferAttribute(colors, <span class="hljs-number">3</span>))
+    geometry.name = <span class="hljs-string">'links'</span>
+    <span class="hljs-keyword">const</span> material = <span class="hljs-keyword">new</span> THREE.LineBasicMaterial({<span class="hljs-attr">vertexColors</span>: THREE.VertexColors})
+
+    <span class="hljs-keyword">const</span> mesh = <span class="hljs-keyword">this</span>.linksMesh = <span class="hljs-keyword">new</span> THREE.LineSegments(geometry, material)
+    <span class="hljs-keyword">this</span>.scene.add(mesh)
+  }
+  updateLinksMesh (links) {
+    <span class="hljs-keyword">const</span> vertices = []
+    <span class="hljs-keyword">const</span> colors = []
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; links.length; i++) {
+      <span class="hljs-keyword">const</span> {end0, end1, color} = links[i]
+      <span class="hljs-keyword">const</span> {<span class="hljs-attr">x</span>: x0, <span class="hljs-attr">y</span>: y0, <span class="hljs-attr">z</span>: z0} = end0
+      <span class="hljs-keyword">const</span> {<span class="hljs-attr">x</span>: x1, <span class="hljs-attr">y</span>: y1, <span class="hljs-attr">z</span>: z1} = end1
+      <span class="hljs-keyword">const</span> ps = <span class="hljs-keyword">this</span>.model.world.patchSize
+      vertices.push(x0 * ps, y0 * ps, z0 * ps, x1 * ps, y1 * ps, z1 * ps)
+      colors.push(...color.webgl, ...color.webgl)
+    }
+    <span class="hljs-keyword">const</span> mesh = <span class="hljs-keyword">this</span>.linksMesh
+    <span class="hljs-keyword">const</span> positionAttrib = mesh.geometry.getAttribute(<span class="hljs-string">'position'</span>)
+    <span class="hljs-keyword">const</span> colorAttrib = mesh.geometry.getAttribute(<span class="hljs-string">'color'</span>)
+    positionAttrib.setArray(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Float32Array</span>(vertices))
+    positionAttrib.needsUpdate = <span class="hljs-literal">true</span>
+    colorAttrib.setArray(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Float32Array</span>(colors))
+    colorAttrib.needsUpdate = <span class="hljs-literal">true</span>
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Three</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

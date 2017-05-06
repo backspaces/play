@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Patches.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="AS.html">
+                  AS.js
+                </a>
+              
+                
+                <a class="source" href="AgentSet.html">
+                  AgentSet.js
+                </a>
+              
+                
+                <a class="source" href="Animator.html">
+                  Animator.js
+                </a>
+              
+                
+                <a class="source" href="AscDataSet.html">
+                  AscDataSet.js
+                </a>
+              
+                
+                <a class="source" href="Color.html">
+                  Color.js
+                </a>
+              
+                
+                <a class="source" href="ColorMap.html">
+                  ColorMap.js
+                </a>
+              
+                
+                <a class="source" href="DataSet.html">
+                  DataSet.js
+                </a>
+              
+                
+                <a class="source" href="DataSetIO.html">
+                  DataSetIO.js
+                </a>
+              
+                
+                <a class="source" href="Link.html">
+                  Link.js
+                </a>
+              
+                
+                <a class="source" href="Links.html">
+                  Links.js
+                </a>
+              
+                
+                <a class="source" href="Model.html">
+                  Model.js
+                </a>
+              
+                
+                <a class="source" href="Mouse.html">
+                  Mouse.js
+                </a>
+              
+                
+                <a class="source" href="OofA.html">
+                  OofA.js
+                </a>
+              
+                
+                <a class="source" href="Patch.html">
+                  Patch.js
+                </a>
+              
+                
+                <a class="source" href="Patches.html">
+                  Patches.js
+                </a>
+              
+                
+                <a class="source" href="RGBADataSet.html">
+                  RGBADataSet.js
+                </a>
+              
+                
+                <a class="source" href="RGBDataSet.html">
+                  RGBDataSet.js
+                </a>
+              
+                
+                <a class="source" href="SpriteSheet.html">
+                  SpriteSheet.js
+                </a>
+              
+                
+                <a class="source" href="Three.html">
+                  Three.js
+                </a>
+              
+                
+                <a class="source" href="Turtle.html">
+                  Turtle.js
+                </a>
+              
+                
+                <a class="source" href="Turtles.html">
+                  Turtles.js
+                </a>
+              
+                
+                <a class="source" href="glx.html">
+                  glx.js
+                </a>
+              
+                
+                <a class="source" href="util.html">
+                  util.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>Patches.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> util <span class="hljs-keyword">from</span> <span class="hljs-string">'./util.js'</span>
+<span class="hljs-keyword">import</span> AgentSet <span class="hljs-keyword">from</span> <span class="hljs-string">'./AgentSet.js'</span>
+<span class="hljs-keyword">import</span> DataSet <span class="hljs-keyword">from</span> <span class="hljs-string">'./DataSet.js'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Patches are the world other agentsets live on. They create a coord system
+from Model’s world values: size, minX, maxX, minY, maxY</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Patches</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AgentSet</span> </span>{
+  <span class="hljs-keyword">constructor</span> (model, AgentProto, name, baseSet = null) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>AgentSet sets these variables:
+model, name, baseSet, world: model.world, agentProto: new AgentProto
+REMIND: agentProto: defaults, agentSet, world, [name]=agentSet.baseSet</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">super</span>(model, AgentProto, name, baseSet)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Skip if a basic Array ctor or a breedSet (don’t rebuild patches!).
+See AgentSet comments.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> model === <span class="hljs-string">'number'</span> || <span class="hljs-keyword">this</span>.isBreedSet()) <span class="hljs-keyword">return</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>this.world = model.world</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.populate()
+    <span class="hljs-keyword">this</span>.setPixels()
+    <span class="hljs-keyword">this</span>.labels = [] <span class="hljs-comment">// sparse array for labels</span>
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Set up all the patches.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  populate () {
+    util.repeat(<span class="hljs-keyword">this</span>.world.numX * <span class="hljs-keyword">this</span>.world.numY, (i) =&gt; {
+      <span class="hljs-keyword">this</span>.add(<span class="hljs-built_in">Object</span>.create(<span class="hljs-keyword">this</span>.agentProto))
+    })
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Setup pixels ctx used for patch.color: <code>draw</code> and <code>importColors</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setPixels () {
+    <span class="hljs-keyword">const</span> {numX, numY} = <span class="hljs-keyword">this</span>.world</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>const ctx = this.model.contexts.patches
+const pixels = this.pixels = {are1x1: patchSize === 1}
+pixels.ctx = pixels.are1x1 ? ctx : util.createCtx(numX, numY)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">this</span>.pixels = {
+      <span class="hljs-attr">ctx</span>: util.createCtx(numX, numY)
+    }
+    <span class="hljs-keyword">this</span>.setImageData()
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Create the pixels object used by <code>setPixels</code> and <code>installColors</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setImageData () {
+    <span class="hljs-keyword">const</span> pixels = <span class="hljs-keyword">this</span>.pixels
+    pixels.imageData = util.ctxImageData(pixels.ctx)
+    pixels.data8 = pixels.imageData.data
+    pixels.data = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint32Array</span>(pixels.data8.buffer)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Get/Set label. REMIND: not implemented.
+Set removes label if label is null or undefined.
+Get returns undefined if no label.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setLabel (patch, label) { <span class="hljs-comment">// REMIND: does this work for breeds?</span>
+    <span class="hljs-keyword">if</span> (label == <span class="hljs-literal">null</span>) <span class="hljs-comment">// null or undefined</span>
+      <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>.labels[patch.id]
+    <span class="hljs-keyword">else</span>
+      <span class="hljs-keyword">this</span>.labels[patch.id] = label
+  }
+  getLabel (patch) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.labels[patch.id]
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Return the offsets from a patch for its 8 element neighbors.
+Specialized to be faster than patchRect below.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  neighborsOffsets (x, y) {
+    <span class="hljs-keyword">const</span> {minX, maxX, minY, maxY, numX} = <span class="hljs-keyword">this</span>.world
+    <span class="hljs-keyword">if</span> (x === minX) {
+      <span class="hljs-keyword">if</span> (y === minY) <span class="hljs-keyword">return</span> [-numX, -numX + <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]
+      <span class="hljs-keyword">if</span> (y === maxY) <span class="hljs-keyword">return</span> [<span class="hljs-number">1</span>, numX + <span class="hljs-number">1</span>, numX]
+      <span class="hljs-keyword">return</span> [-numX, -numX + <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, numX + <span class="hljs-number">1</span>, numX]
+    }
+    <span class="hljs-keyword">if</span> (x === maxX) {
+      <span class="hljs-keyword">if</span> (y === minY) <span class="hljs-keyword">return</span> [-numX - <span class="hljs-number">1</span>, -numX, <span class="hljs-number">-1</span>]
+      <span class="hljs-keyword">if</span> (y === maxY) <span class="hljs-keyword">return</span> [numX, numX - <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>]
+      <span class="hljs-keyword">return</span> [-numX - <span class="hljs-number">1</span>, -numX, numX, numX - <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>]
+    }
+    <span class="hljs-keyword">if</span> (y === minY) <span class="hljs-keyword">return</span> [-numX - <span class="hljs-number">1</span>, -numX, -numX + <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>]
+    <span class="hljs-keyword">if</span> (y === maxY) <span class="hljs-keyword">return</span> [<span class="hljs-number">1</span>, numX + <span class="hljs-number">1</span>, numX, numX - <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>]
+    <span class="hljs-keyword">return</span> [-numX - <span class="hljs-number">1</span>, -numX, -numX + <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, numX + <span class="hljs-number">1</span>, numX, numX - <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>]
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Return the offsets from a patch for its 4 element neighbors (N,S,E,W)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  neighbors4Offsets (x, y) {
+    <span class="hljs-keyword">const</span> numX = <span class="hljs-keyword">this</span>.world.numX
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.neighborsOffsets(x, y)
+      .filter(<span class="hljs-function">(<span class="hljs-params">n</span>) =&gt;</span> <span class="hljs-built_in">Math</span>.abs(n) === <span class="hljs-number">1</span> || <span class="hljs-built_in">Math</span>.abs(n) === numX) <span class="hljs-comment">// slightly faster</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>.filter((n) =&gt; [1, -1, numX, -numX].indexOf(n) &gt;= 0)
+.filter((n) =&gt; [1, -1, numX, -numX].includes(n)) // slower than indexOf</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Return my 8 patch neighbors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  neighbors (patch) {
+    <span class="hljs-keyword">const</span> {id, x, y} = patch
+    <span class="hljs-keyword">const</span> offsets = <span class="hljs-keyword">this</span>.neighborsOffsets(x, y)
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">as</span> = <span class="hljs-keyword">new</span> AgentSet(offsets.length)
+    offsets.forEach(<span class="hljs-function">(<span class="hljs-params">o, i</span>) =&gt;</span> { <span class="hljs-keyword">as</span>[i] = <span class="hljs-keyword">this</span>[o + id] })
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">as</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>offsets.forEach((o, i, a) =&gt; { a[i] = this[o + id] })
+return this.asAgentSet(offsets)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Return my 4 patch neighbors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  neighbors4 (patch) {
+    <span class="hljs-keyword">const</span> {id, x, y} = patch
+    <span class="hljs-keyword">const</span> offsets = <span class="hljs-keyword">this</span>.neighbors4Offsets(x, y)
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">as</span> = <span class="hljs-keyword">new</span> AgentSet(offsets.length)
+    offsets.forEach(<span class="hljs-function">(<span class="hljs-params">o, i</span>) =&gt;</span> { <span class="hljs-keyword">as</span>[i] = <span class="hljs-keyword">this</span>[o + id] })
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">as</span>
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Return a random valid float x,y point in patch space</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  randomPt () {
+    <span class="hljs-keyword">const</span> {minXcor, maxXcor, minYcor, maxYcor} = <span class="hljs-keyword">this</span>.world
+    <span class="hljs-keyword">return</span> [util.randomFloat2(minXcor, maxXcor), util.randomFloat2(minYcor, maxYcor)]
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Return a random patch.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  randomPatch () { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.oneOf() }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Patches in rectangle dx, dy from p, dx, dy integers.
+Both dx &amp; dy are half width/height of rect</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  patchRect (p, dx, dy = dx, meToo = <span class="hljs-literal">true</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Return cached rect if one exists.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (p.pRect &amp;&amp; p.pRect.length === dx * dy) <span class="hljs-keyword">return</span> p.pRect
+    <span class="hljs-keyword">const</span> rect = <span class="hljs-keyword">new</span> AgentSet(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">let</span> {minX, maxX, minY, maxY} = <span class="hljs-keyword">this</span>.world
+    minX = <span class="hljs-built_in">Math</span>.max(minX, p.x - dx)
+    maxX = <span class="hljs-built_in">Math</span>.min(maxX, p.x + dx)
+    minY = <span class="hljs-built_in">Math</span>.max(minY, p.y - dy)
+    maxY = <span class="hljs-built_in">Math</span>.min(maxY, p.y + dy)
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> y = minY; y &lt;= maxY; y++) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> x = minX; x &lt;= maxX; x++) {
+        <span class="hljs-keyword">const</span> pnext = <span class="hljs-keyword">this</span>.patchXY(x, y)
+        <span class="hljs-keyword">if</span> (p !== pnext || meToo) rect.push(pnext)
+      }
+    }
+    <span class="hljs-keyword">return</span> rect
+  }
+
+  installPixels () {
+    <span class="hljs-keyword">const</span> pixels = <span class="hljs-keyword">this</span>.pixels
+    pixels.ctx.putImageData(pixels.imageData, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">return</span> pixels
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>REMIND: Three .. need pixels -&gt; texture
+Draw the patches onto the ctx using the pixel image data colors.
+draw (ctx = this.model.contexts.patches) {
+  const {pixels} = this
+  pixels.ctx.putImageData(pixels.imageData, 0, 0)
+  if (!pixels.are1x1)
+    util.fillCtxWithImage(ctx, pixels.ctx.canvas)
+  for (const i in this.labels) { // <code>for .. in</code>: skips sparse array gaps.
+    const label = this.labels[i]
+    const {labelOffset: offset, labelColor: color} = this[i]
+    const [x, y] = this.patchXYToPixelXY(…this.patchIndexToXY(i))
+    util.ctxDrawText(ctx, label, x + offset[0], y + offset[1], color.getCss())
+  }
+}
+REMIND: No drawing layer yet
+// Draws, or “imports” an image URL into the drawing layer.
+// The image is scaled to fit the drawing layer.
+// This is an async function, using es6 Promises.
+importDrawing (imageSrc) {
+  util.imagePromise(imageSrc)
+  .then((img) =&gt; this.installDrawing(img))
+}
+// Direct install image into the given context, not async.
+installDrawing (img, ctx = this.model.contexts.drawing) {
+  util.fillCtxWithImage(ctx, img)
+}</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  importColors (imageSrc) {
+    util.imagePromise(imageSrc)
+    .then(<span class="hljs-function">(<span class="hljs-params">img</span>) =&gt;</span> <span class="hljs-keyword">this</span>.installColors(img))
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Direct install image into the patch colors, not async.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  installColors (img) {
+    util.fillCtxWithImage(<span class="hljs-keyword">this</span>.pixels.ctx, img)
+    <span class="hljs-keyword">this</span>.setImageData()
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>Import/export DataSet to/from patch variable <code>patchVar</code>.
+<code>useNearest</code>: true for fast rounding to nearest; false for bi-linear.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  importDataSet (dataSet, patchVar, useNearest = <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">const</span> {numX, numY} = <span class="hljs-keyword">this</span>.world
+    <span class="hljs-keyword">const</span> dataset = dataSet.resample(numX, numY, useNearest)
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> patch <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>)
+      patch[patchVar] = dataset.data[patch.id]
+  }
+  exportDataSet (patchVar, Type = <span class="hljs-built_in">Array</span>) {
+    <span class="hljs-keyword">const</span> {numX, numY} = <span class="hljs-keyword">this</span>.world
+    <span class="hljs-keyword">let</span> data = util.arrayProps(<span class="hljs-keyword">this</span>, patchVar)
+    data = util.convertArray(data, Type)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DataSet(numX, numY, data)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>Return true if x,y floats are within patch world.
+isOnWorld (x, y) {
+  const {minXcor, maxXcor, minYcor, maxYcor} = this.world
+  return (minXcor &lt;= x) &amp;&amp; (x &lt;= maxXcor) &amp;&amp; (minYcor &lt;= y) &amp;&amp; (y &lt;= maxYcor)
+}
+Return the patch id/index given valid integer x,y in patch coords</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  patchXYToIndex (x, y) {
+    <span class="hljs-keyword">const</span> {minX, maxY, numX} = <span class="hljs-keyword">this</span>.world
+    <span class="hljs-keyword">return</span> (x - minX) + (numX * (maxY - y))
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>Return the patch x,y patch coords given a valid patches id/index</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  patchIndexToXY (ix) {
+    <span class="hljs-keyword">const</span> {minX, maxY, numX} = <span class="hljs-keyword">this</span>.world
+    <span class="hljs-keyword">return</span> [(ix % numX) + minX, maxY - <span class="hljs-built_in">Math</span>.floor(ix / numX)]
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Convert to/from pixel coords &amp; patch coords</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  pixelXYToPatchXY (x, y) {
+    <span class="hljs-keyword">const</span> {patchSize, minXcor, maxYcor} = <span class="hljs-keyword">this</span>.world
+    <span class="hljs-keyword">return</span> [minXcor + (x / patchSize), maxYcor - (y / patchSize)]
+  }
+  patchXYToPixelXY (x, y) {
+    <span class="hljs-keyword">const</span> {patchSize, minXcor, maxYcor} = <span class="hljs-keyword">this</span>.world
+    <span class="hljs-keyword">return</span> [(x - minXcor) * patchSize, (maxYcor - y) * patchSize]
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>Utils for NetLogo patch location methods.
+All return <code>undefined</code> if not onworld.
+Note that foo == null checks for both undefined and null (== vs ===)
+and is considered an OK practice.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>Return patch at x,y float values according to topology.
+Return undefined if off-world</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  patch (x, y) {
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.world.isOnWorld(x, y)) <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>
+    <span class="hljs-keyword">const</span> intX = x === <span class="hljs-keyword">this</span>.world.maxXcor
+      ? <span class="hljs-keyword">this</span>.world.maxX : <span class="hljs-built_in">Math</span>.round(x) <span class="hljs-comment">// handle n.5 round up to n + 1</span>
+    <span class="hljs-keyword">const</span> intY = y === <span class="hljs-keyword">this</span>.world.maxYcor
+      ? <span class="hljs-keyword">this</span>.world.maxY : <span class="hljs-built_in">Math</span>.round(y)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.patchXY(intX, intY)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>Return the patch at x,y where both are valid integer patch coordinates.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  patchXY (x, y) { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-keyword">this</span>.patchXYToIndex(x, y)] }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>Return patches within the patch rect, default is square &amp; meToo
+inRect (patch, dx, dy = dx, meToo = true) {
+  return this.patchRect(patch, dx, dy, meToo)
+}
+Patches in circle radius (integer) from patch</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  inRadius (patch, radius, meToo = <span class="hljs-literal">true</span>) {
+    <span class="hljs-keyword">const</span> rSq = radius * radius
+    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">new</span> AgentSet(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">const</span> sqDistance = util.sqDistance <span class="hljs-comment">// 10% faster</span>
+    <span class="hljs-keyword">const</span> pRect = <span class="hljs-keyword">this</span>.patchRect(patch, radius, radius, meToo)
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; pRect.length; i++) {
+      <span class="hljs-keyword">const</span> p = pRect[i]
+      <span class="hljs-keyword">if</span> (sqDistance(patch.x, patch.y, p.x, p.y) &lt;= rSq) result.push(p)
+    }
+    <span class="hljs-keyword">return</span> result
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>Patches in cone from p in direction <code>angle</code>, with <code>coneAngle</code> and <code>radius</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  inCone (patch, radius, coneAngle, direction, meToo = <span class="hljs-literal">true</span>) {
+    <span class="hljs-keyword">const</span> pRect = <span class="hljs-keyword">this</span>.patchRect(patch, radius, radius, meToo)
+    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">new</span> AgentSet(<span class="hljs-number">0</span>)
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; pRect.length; i++) {
+      <span class="hljs-keyword">const</span> p = pRect[i]
+      <span class="hljs-keyword">const</span> isIn = util.inCone(p.x, p.y, radius, coneAngle, direction, patch.x, patch.y)
+      <span class="hljs-keyword">if</span> (isIn &amp;&amp; (patch !== p || meToo)) result.push(p)
+    }
+    <span class="hljs-keyword">return</span> result
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>Return patch at distance and angle from obj’s (patch or turtle)
+x, y (floats). If off world, return undefined.
+To use heading: patchAtAngleAndDistance(obj, util.angle(heading), distance)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  patchAtAngleAndDistance (obj, angle, distance) {
+    <span class="hljs-keyword">let</span> {x, y} = obj
+    x = x + distance * <span class="hljs-built_in">Math</span>.cos(angle)
+    y = y + distance * <span class="hljs-built_in">Math</span>.sin(angle)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.patch(x, y)
+  }
+  patchLeftAndAhead (dTheta, distance) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.patchAtAngleAndDistance(dTheta, distance)
+  }
+  patchRightAndAhead (dTheta, distance) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.patchAtAngleAndDistance(-dTheta, distance)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>Diffuse the value of patch variable <code>p.v</code> by distributing <code>rate</code> percent
+of each patch’s value of <code>v</code> to its neighbors.
+If a color map is given, scale the patch color via variable’s value
+If the patch has less than 4/8 neighbors, return the extra to the patch.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  diffuse (v, rate, colorMap = <span class="hljs-literal">null</span>, min = <span class="hljs-number">0</span>, max = <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">this</span>.diffuseN(<span class="hljs-number">8</span>, v, rate, colorMap, min, max)
+  }
+  diffuse4 (v, rate, colorMap = <span class="hljs-literal">null</span>, min = <span class="hljs-number">0</span>, max = <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">this</span>.diffuseN(<span class="hljs-number">4</span>, v, rate, colorMap, min, max)
+  }
+  diffuseN (n, v, rate, colorMap = <span class="hljs-literal">null</span>, min = <span class="hljs-number">0</span>, max = <span class="hljs-number">1</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>Note: for-of loops removed: chrome can’t optimize them
+test/apps/patches.js 22fps -&gt; 60fps
+zero temp variable if not yet set</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>[<span class="hljs-number">0</span>]._diffuseNext === <span class="hljs-literal">undefined</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>for (const p of this) p._diffuseNext = 0</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.length; i++) <span class="hljs-keyword">this</span>[i]._diffuseNext = <span class="hljs-number">0</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <p>pass 1: calculate contribution of all patches to themselves and neighbors
+for (const p of this) {</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.length; i++) {
+      <span class="hljs-keyword">const</span> p = <span class="hljs-keyword">this</span>[i]
+      <span class="hljs-keyword">const</span> dv = p[v] * rate
+      <span class="hljs-keyword">const</span> dvn = dv / n
+      <span class="hljs-keyword">const</span> neighbors = (n === <span class="hljs-number">8</span>) ? p.neighbors : p.neighbors4
+      <span class="hljs-keyword">const</span> nn = neighbors.length
+      p._diffuseNext += p[v] - dv + (n - nn) * dvn</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>for (const n of neighbors) n._diffuseNext += dvn</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; neighbors.length; i++) neighbors[i]._diffuseNext += dvn
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <p>pass 2: set new value for all patches, zero temp,
+modify color if colorMap given
+for (const p of this) {</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.length; i++) {
+      <span class="hljs-keyword">const</span> p = <span class="hljs-keyword">this</span>[i]
+      p[v] = p._diffuseNext
+      p._diffuseNext = <span class="hljs-number">0</span>
+      <span class="hljs-keyword">if</span> (colorMap)
+        p.setColor(colorMap.scaleColor(p[v], min, max))
+    }
+  }
+
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Patches</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

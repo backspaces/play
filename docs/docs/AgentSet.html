@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>AgentSet.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="AS.html">
+                  AS.js
+                </a>
+              
+                
+                <a class="source" href="AgentSet.html">
+                  AgentSet.js
+                </a>
+              
+                
+                <a class="source" href="Animator.html">
+                  Animator.js
+                </a>
+              
+                
+                <a class="source" href="AscDataSet.html">
+                  AscDataSet.js
+                </a>
+              
+                
+                <a class="source" href="Color.html">
+                  Color.js
+                </a>
+              
+                
+                <a class="source" href="ColorMap.html">
+                  ColorMap.js
+                </a>
+              
+                
+                <a class="source" href="DataSet.html">
+                  DataSet.js
+                </a>
+              
+                
+                <a class="source" href="DataSetIO.html">
+                  DataSetIO.js
+                </a>
+              
+                
+                <a class="source" href="Link.html">
+                  Link.js
+                </a>
+              
+                
+                <a class="source" href="Links.html">
+                  Links.js
+                </a>
+              
+                
+                <a class="source" href="Model.html">
+                  Model.js
+                </a>
+              
+                
+                <a class="source" href="Mouse.html">
+                  Mouse.js
+                </a>
+              
+                
+                <a class="source" href="OofA.html">
+                  OofA.js
+                </a>
+              
+                
+                <a class="source" href="Patch.html">
+                  Patch.js
+                </a>
+              
+                
+                <a class="source" href="Patches.html">
+                  Patches.js
+                </a>
+              
+                
+                <a class="source" href="RGBADataSet.html">
+                  RGBADataSet.js
+                </a>
+              
+                
+                <a class="source" href="RGBDataSet.html">
+                  RGBDataSet.js
+                </a>
+              
+                
+                <a class="source" href="SpriteSheet.html">
+                  SpriteSheet.js
+                </a>
+              
+                
+                <a class="source" href="Three.html">
+                  Three.js
+                </a>
+              
+                
+                <a class="source" href="Turtle.html">
+                  Turtle.js
+                </a>
+              
+                
+                <a class="source" href="Turtles.html">
+                  Turtles.js
+                </a>
+              
+                
+                <a class="source" href="glx.html">
+                  glx.js
+                </a>
+              
+                
+                <a class="source" href="util.html">
+                  util.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>AgentSet.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> util <span class="hljs-keyword">from</span> <span class="hljs-string">'./util.js'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>AgentSets are arrays that are factories for their own agents/objects.
+They are the base for Patches, Turtles and Links.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Vocab: AgentSets are NetLogo collections: Patches, Turtles, and Links.
+Agent is an object in an AgentSet: Patch, Turtle, Link.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AgentSet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Array</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Create an empty <code>AgentSet</code> and initialize the <code>ID</code> counter for add().
+If baseSet is supplied, the new agentset is a subarray of baseSet.
+This sub-array feature is how breeds are managed, see class <code>Model</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span> (model, AgentProto, name, baseSet = null) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Because es6 JavaScript Array itself calls the Array ctor
+(ex: slice() returning a new array), skip if not AgentSet ctor.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (model == <span class="hljs-literal">null</span>) model = <span class="hljs-number">0</span> <span class="hljs-comment">// model is null or undefined</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> model === <span class="hljs-string">'number'</span>) {
+      <span class="hljs-keyword">super</span>(model) <span class="hljs-comment">// model is a number, return AgentSet array of that size</span>
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">super</span>(<span class="hljs-number">0</span>) <span class="hljs-comment">// create empty array</span>
+      baseSet = baseSet || <span class="hljs-keyword">this</span> <span class="hljs-comment">// if not a breed, set baseSet to this</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>AgentSets know their model, name, baseSet, world.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-built_in">Object</span>.assign(<span class="hljs-keyword">this</span>, {model, name, baseSet, <span class="hljs-attr">world</span>: model.world})</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>// Link our agents to us
+this.agentProto.agentSet = this
+BaseSets know their breeds and keep the ID global</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isBaseSet()) {
+        <span class="hljs-keyword">this</span>.breeds = {} <span class="hljs-comment">// will contain breedname: breed entries</span>
+        <span class="hljs-keyword">this</span>.ID = <span class="hljs-number">0</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Breeds add themselves to baseSet.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">this</span>.baseSet.breeds[name] = <span class="hljs-keyword">this</span>
+      }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Keep a list of this set’s variables; see <code>own</code> below</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">this</span>.ownVariables = []</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Create a proto for our agents by having a defaults and instance layer</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">this</span>.agentProto = <span class="hljs-keyword">new</span> AgentProto(<span class="hljs-keyword">this</span>)
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Is this a baseSet or a derived “breed”</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  isBreedSet () { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.baseSet !== <span class="hljs-keyword">this</span> }
+  isBaseSet () { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.baseSet === <span class="hljs-keyword">this</span> }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Abstract method used by subclasses to create and add their instances.
+create () {}
+Add an agent to the list.  Only used by agentset factory methods. Adds
+the <code>id</code> property to all agents. Increment <code>ID</code>.
+Returns the object for chaining. The set will be sorted by <code>id</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  add (o) {
+    o = o || <span class="hljs-built_in">Object</span>.create(<span class="hljs-keyword">this</span>.agentProto)
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isBreedSet())
+      <span class="hljs-keyword">this</span>.baseSet.add(o)
+    <span class="hljs-keyword">else</span>
+      o.id = <span class="hljs-keyword">this</span>.ID++
+    <span class="hljs-keyword">this</span>.push(o)
+    <span class="hljs-keyword">return</span> o
+  }
+  clear () { <span class="hljs-keyword">while</span> (<span class="hljs-keyword">this</span>.any()) <span class="hljs-keyword">this</span>.last().die() } <span class="hljs-comment">// die() is an agent method</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Remove an agent from the agentset, returning the agentset for chaining.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  remove (o) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Remove me from my baseSet</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isBreedSet()) util.removeItem(<span class="hljs-keyword">this</span>.baseSet, o, <span class="hljs-string">'id'</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Remove me from my set.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    util.removeItem(<span class="hljs-keyword">this</span>, o, <span class="hljs-string">'id'</span>)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Get/Set default values for this agentset’s agents.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setDefault (name, value) { <span class="hljs-keyword">this</span>.agentProto[name] = value }
+  getDefault (name) { <span class="hljs-keyword">this</span>.agentProto[name] }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Declare variables of an agent class.
+<code>varnames</code> is a string of space separated names</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  own (varnames) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>if (this.isBreedSet())
+  this.ownVariables = util.clone(this.baseSet.ownVariables)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> name <span class="hljs-keyword">of</span> varnames.split(<span class="hljs-string">' '</span>)) {
+      <span class="hljs-keyword">this</span>.setDefault(name, <span class="hljs-literal">null</span>)
+      <span class="hljs-keyword">this</span>.ownVariables.push(name)
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Move an agent from its AgentSet/breed to be in this AgentSet/breed.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setBreed (a) { <span class="hljs-comment">// change agent a to be in this breed</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Return if <code>a</code> is already of my breed</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (a.agentSet === <span class="hljs-keyword">this</span>) <span class="hljs-keyword">return</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Remove/insert breeds (not baseSets) from their agentsets</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (a.agentSet.isBreedSet()) util.removeItem(a.agentSet, a, <span class="hljs-string">'id'</span>)
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isBreedSet()) util.insertItem(<span class="hljs-keyword">this</span>, a, <span class="hljs-string">'id'</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Make list of <code>a</code>‘s vars and my ownvars.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> avars = a.agentSet.ownVariables</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>First remove <code>a</code>‘s vars not in my ownVariables</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> avar <span class="hljs-keyword">of</span> avars)
+      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.ownVariables.includes(avar))
+        <span class="hljs-keyword">delete</span> a[avar]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>Now add ownVariables to <code>a</code>‘s vars, default to 0.
+If ownvar already in avars, it is not modified.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> ownvar <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>.ownVariables)
+      <span class="hljs-keyword">if</span> (!avars.includes(ownvar))
+        a[ownvar] = <span class="hljs-number">0</span> <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> NL uses 0, maybe we should use null?</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>Give <code>a</code> my defaults/statics</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.setPrototypeOf(a, <span class="hljs-keyword">this</span>.agentProto)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Method to convert an array to the same AgentSet type as this.
+asAgentSet (array) {
+  return Object.setPrototypeOf(array, Object.getPrototypeOf(this))
+}</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <h3 id="general-array-of-objects-methods">General Array of Objects methods</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>Return true if there are no items in this set, false if not empty.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  empty () { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.length === <span class="hljs-number">0</span> }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>Return !empty()</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  any () { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.length !== <span class="hljs-number">0</span> }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>Return last item in this array. Returns undefined if empty.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  last () { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[ <span class="hljs-keyword">this</span>.length - <span class="hljs-number">1</span> ] }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>Return true if reporter true for all of this set’s objects</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  all (reporter) { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.every(reporter) }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>Convert an AgentSet to an Array</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  toArray () { <span class="hljs-built_in">Object</span>.setPrototypeOf(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">Array</span>.prototype); <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span> }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>Return Array of property values for key from this array’s objects</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  props (key) { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.map(<span class="hljs-function">(<span class="hljs-params">a</span>) =&gt;</span> a[key]).toArray() }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>Return agentset with reporter(agent) true</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">with</span> (reporter) { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filter(reporter) }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>Call fcn(agent) for each agent in AgentSet. Return the AgentSet for chaining.
+Note: 5x+ faster than this.forEach(fcn) !!</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  ask (fcn) { <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.length; i++) fcn(<span class="hljs-keyword">this</span>[i]); <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span> }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <p>Convience fcn for NetLogo’s ask-with. Returns the with filtered AgentSet.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  askWith (askFcn, withFcn) { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.with(withFcn).ask(askFcn) }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>Return count of agents with reporter(agent) true</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  count (reporter) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.reduce(<span class="hljs-function">(<span class="hljs-params">prev, p</span>) =&gt;</span> prev + reporter(p) ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <p>Replacements for array methods to avoid calling AgentSet ctor</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-39">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <p>Return shallow copy of a protion of this agentset
+<a href="https://goo.gl/Ilgsok">See Array.slice</a>
+Default is to clone entire agentset</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  clone (begin = <span class="hljs-number">0</span>, end = <span class="hljs-keyword">this</span>.length) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.slice(begin, end) <span class="hljs-comment">// Wow, returns an agentset rather than Array!</span>
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-40">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-40">&#182;</a>
+              </div>
+              <p>Randomize the agentset in place. Use clone first if new agentset needed.
+Return “this” for chaining.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  shuffle () { <span class="hljs-keyword">return</span> util.shuffle(<span class="hljs-keyword">this</span>) }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-41">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-41">&#182;</a>
+              </div>
+              <p>Return this agentset sorted by the reporter in ascending/descending order.
+If reporter is a string, convert to a fcn returning that property.
+Use clone if you don’t want to mutate this array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  sortBy (reporter, ascending = <span class="hljs-literal">true</span>) {
+    util.sortObjs(<span class="hljs-keyword">this</span>, reporter, ascending)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-42">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-42">&#182;</a>
+              </div>
+              <p>Return a random agent. Return undefined if empty.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  oneOf () { <span class="hljs-keyword">return</span> util.oneOf(<span class="hljs-keyword">this</span>) }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-43">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-43">&#182;</a>
+              </div>
+              <p>Return a random agent, not equal to a</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  otherOneOf (item) { <span class="hljs-keyword">return</span> util.otherOneOf(<span class="hljs-keyword">this</span>, item) }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-44">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-44">&#182;</a>
+              </div>
+              <p>otherOneOf: nOf good enough?
+Return the first agent having the min/max of given value of f(agent).
+If reporter is a string, convert to a fcn returning that property</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  minOrMaxOf (min, reporter) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.empty()) util.error(<span class="hljs-string">'min/max OneOf: empty array'</span>)
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> reporter === <span class="hljs-string">'string'</span>) reporter = util.propFcn(reporter)
+    <span class="hljs-keyword">let</span> o = <span class="hljs-literal">null</span>
+    <span class="hljs-keyword">let</span> val = min ? <span class="hljs-literal">Infinity</span> : -<span class="hljs-literal">Infinity</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.length; i++) {
+      <span class="hljs-keyword">const</span> a = <span class="hljs-keyword">this</span>[i]
+      <span class="hljs-keyword">const</span> aval = reporter(a)
+      <span class="hljs-keyword">if</span> ((min &amp;&amp; (aval &lt; val)) || (!min &amp;&amp; (aval &gt; val)))
+        [o, val] = [a, aval]
+    }
+    <span class="hljs-keyword">return</span> o
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-45">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-45">&#182;</a>
+              </div>
+              <p>The min version of the above</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  minOneOf (reporter) { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.minOrMaxOf(<span class="hljs-literal">true</span>, reporter) }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-46">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-46">&#182;</a>
+              </div>
+              <p>The max version of the above</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  maxOneOf (reporter) { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.minOrMaxOf(<span class="hljs-literal">false</span>, reporter) }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-47">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-47">&#182;</a>
+              </div>
+              <p>Return n random agents as agentset.
+See <a href="https://goo.gl/fWNFf">Fisher-Yates-Knuth shuffle</a>
+for better approach for large n.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  nOf (n) { <span class="hljs-comment">// I realize this is a bit silly, lets hope random doesn't repeat!</span>
+    <span class="hljs-keyword">if</span> (n &gt; <span class="hljs-keyword">this</span>.length) util.error(<span class="hljs-string">'nOf: n larger than agentset'</span>)
+    <span class="hljs-keyword">if</span> (n === <span class="hljs-keyword">this</span>.length) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">new</span> AgentSet()
+    <span class="hljs-keyword">while</span> (result.length &lt; n) {
+      <span class="hljs-keyword">const</span> o = <span class="hljs-keyword">this</span>.oneOf()
+      <span class="hljs-keyword">if</span> (!(o <span class="hljs-keyword">in</span> result)) result.push(o)
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-48">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-48">&#182;</a>
+              </div>
+              <p>return this.asAgentSet(result)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> result
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-49">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-49">&#182;</a>
+              </div>
+              <p>Return a new agentset of the n min/max agents of the value of reporter,
+in ascending order.
+If reporter is a string, convert to a fcn returning that property
+NOTE: we do not manage ties, see NetLogo docs.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  minOrMaxNOf (min, n, reporter) {
+    <span class="hljs-keyword">if</span> (n &gt; <span class="hljs-keyword">this</span>.length) util.error(<span class="hljs-string">'min/max nOf: n larger than agentset'</span>)
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">as</span> = <span class="hljs-keyword">this</span>.clone().sortBy(reporter)
+    <span class="hljs-keyword">return</span> min ? <span class="hljs-keyword">as</span>.clone(<span class="hljs-number">0</span>, n) : <span class="hljs-keyword">as</span>.clone(<span class="hljs-keyword">as</span>.length - n)
+  }
+  minNOf (n, reporter) { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.minOrMaxNOf(<span class="hljs-literal">true</span>, n, reporter) }
+  maxNOf (n, reporter) { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.minOrMaxNOf(<span class="hljs-literal">false</span>, n, reporter) }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-50">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-50">&#182;</a>
+              </div>
+              <p>Geometry methods for patches, turtles, and other agentsets which have x,y.
+Return all agents within rect, radius, cone from given agent o.
+If meToo, include given object, default excludes it
+Typically the agentset is a subset of larger sets, reducing
+the size, then uses these inRect, inRadius or inCone methods</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-51">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-51">&#182;</a>
+              </div>
+              <p>Return all agents within rectangle from given agent o.
+dx &amp; dy are (float) half width/height of rect</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  inRect (o, dx, dy = dx, meToo = <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">const</span> agents = <span class="hljs-keyword">new</span> AgentSet()
+    <span class="hljs-keyword">const</span> minX = o.x - dx <span class="hljs-comment">// ok if max/min off-world, o, a are in-world</span>
+    <span class="hljs-keyword">const</span> maxX = o.x + dx
+    <span class="hljs-keyword">const</span> minY = o.y - dy
+    <span class="hljs-keyword">const</span> maxY = o.y + dy
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> a <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>) {
+      <span class="hljs-keyword">if</span> (minX &lt;= a.x &amp;&amp; a.x &lt;= maxX &amp;&amp; minY &lt;= a.y &amp;&amp; a.y &lt;= maxY) {
+        <span class="hljs-keyword">if</span> (meToo || o !== a) agents.push(a)
+      }
+    }
+    <span class="hljs-keyword">return</span> agents
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-52">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-52">&#182;</a>
+              </div>
+              <p>Return all agents in agentset within d distance from given object.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  inRadius (o, radius, meToo = <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">const</span> agents = <span class="hljs-keyword">new</span> AgentSet()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-53">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-53">&#182;</a>
+              </div>
+              <p>const {x, y} = o</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> d2 = radius * radius
+    <span class="hljs-keyword">const</span> sqDistance = util.sqDistance <span class="hljs-comment">// Local function 2-3x faster, inlined?</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> a <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>) {
+      <span class="hljs-keyword">if</span> (sqDistance(o.x, o.y, a.x, a.y) &lt;= d2)
+        <span class="hljs-keyword">if</span> (meToo || o !== a) agents.push(a)
+    }
+    <span class="hljs-keyword">return</span> agents
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-54">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-54">&#182;</a>
+              </div>
+              <p>As above, but also limited to the angle <code>coneAngle</code> around
+a <code>direction</code> from object <code>o</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  inCone (o, radius, coneAngle, direction, x0, y0, meToo = <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">const</span> agents = <span class="hljs-keyword">new</span> AgentSet()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-55">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-55">&#182;</a>
+              </div>
+              <p>const {x, y} = o</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> a <span class="hljs-keyword">of</span> <span class="hljs-keyword">this</span>) {
+      <span class="hljs-keyword">if</span> (util.inCone(a.x, a.y, radius, coneAngle, direction, o.x, o.y))
+        <span class="hljs-keyword">if</span> (meToo || o !== a) agents.push(a)
+    }
+    <span class="hljs-keyword">return</span> agents
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-56">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-56">&#182;</a>
+              </div>
+              <p>x = o.x; y = o.y
+if @model.patches.isTorus
+  w = @model.patches.numX; h = @model.patches.numY
+  @asSet (a for a in @ when \
+    u.inTorusCone(radius, angle, heading, x, y, a.x, a.y, w, h))
+else
+  @asSet (a for a in @ when \
+    u.inCone(radius, angle, heading, x, y, a.x, a.y))</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> AgentSet</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

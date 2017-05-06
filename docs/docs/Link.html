@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Link.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="AS.html">
+                  AS.js
+                </a>
+              
+                
+                <a class="source" href="AgentSet.html">
+                  AgentSet.js
+                </a>
+              
+                
+                <a class="source" href="Animator.html">
+                  Animator.js
+                </a>
+              
+                
+                <a class="source" href="AscDataSet.html">
+                  AscDataSet.js
+                </a>
+              
+                
+                <a class="source" href="Color.html">
+                  Color.js
+                </a>
+              
+                
+                <a class="source" href="ColorMap.html">
+                  ColorMap.js
+                </a>
+              
+                
+                <a class="source" href="DataSet.html">
+                  DataSet.js
+                </a>
+              
+                
+                <a class="source" href="DataSetIO.html">
+                  DataSetIO.js
+                </a>
+              
+                
+                <a class="source" href="Link.html">
+                  Link.js
+                </a>
+              
+                
+                <a class="source" href="Links.html">
+                  Links.js
+                </a>
+              
+                
+                <a class="source" href="Model.html">
+                  Model.js
+                </a>
+              
+                
+                <a class="source" href="Mouse.html">
+                  Mouse.js
+                </a>
+              
+                
+                <a class="source" href="OofA.html">
+                  OofA.js
+                </a>
+              
+                
+                <a class="source" href="Patch.html">
+                  Patch.js
+                </a>
+              
+                
+                <a class="source" href="Patches.html">
+                  Patches.js
+                </a>
+              
+                
+                <a class="source" href="RGBADataSet.html">
+                  RGBADataSet.js
+                </a>
+              
+                
+                <a class="source" href="RGBDataSet.html">
+                  RGBDataSet.js
+                </a>
+              
+                
+                <a class="source" href="SpriteSheet.html">
+                  SpriteSheet.js
+                </a>
+              
+                
+                <a class="source" href="Three.html">
+                  Three.js
+                </a>
+              
+                
+                <a class="source" href="Turtle.html">
+                  Turtle.js
+                </a>
+              
+                
+                <a class="source" href="Turtles.html">
+                  Turtles.js
+                </a>
+              
+                
+                <a class="source" href="glx.html">
+                  glx.js
+                </a>
+              
+                
+                <a class="source" href="util.html">
+                  util.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>Link.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> util <span class="hljs-keyword">from</span> <span class="hljs-string">'./util.js'</span>
+<span class="hljs-keyword">import</span> Color <span class="hljs-keyword">from</span> <span class="hljs-string">'./Color.js'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>import ColorMap from ‘./ColorMap.js’
+import SpriteSheet from ‘./SpriteSheet’</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Flyweight object creation, see Patch/Patches.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Class Link instances form a link between two turtles, forming a graph.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>The core default variables needed by a Link.
+Use links.setDefault(name, val) to change
+Modelers add additional “own variables” as needed.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> linkVariables = { <span class="hljs-comment">// Core variables for patches. Not 'own' variables.</span>
+  id: <span class="hljs-literal">null</span>,             <span class="hljs-comment">// unique id, promoted by agentset's add() method</span>
+  defaults: <span class="hljs-literal">null</span>,       <span class="hljs-comment">// pointer to defaults/proto object</span>
+  agentSet: <span class="hljs-literal">null</span>,       <span class="hljs-comment">// my agentset/breed</span>
+  model: <span class="hljs-literal">null</span>,      <span class="hljs-comment">// my model</span>
+  world: <span class="hljs-literal">null</span>,          <span class="hljs-comment">// my agent/agentset's world</span>
+  links: <span class="hljs-literal">null</span>,          <span class="hljs-comment">// my baseSet</span>
+
+  end0: <span class="hljs-number">0</span>,              <span class="hljs-comment">// Turtles: end0 &amp; 1 are turtle ends of the link</span>
+  end1: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">color</span>: Color.toTypedColor(<span class="hljs-string">'yellow'</span>), <span class="hljs-comment">// Note: links must have A = 255, opaque.</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>z: 1, // possibly a z offset from the turtles?</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Line width. In Three.js/webgl this is always 1. See
+<a href="https://mattdesl.svbtle.com/drawing-lines-is-hard">Drawing Lines is Hard!</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  width: <span class="hljs-number">1</span>
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinkProto</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Initialize a Link given its Links AgentSet.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">constructor</span> (agentSet) {
+    <span class="hljs-built_in">Object</span>.assign(<span class="hljs-keyword">this</span>, linkVariables)
+    <span class="hljs-keyword">this</span>.defaults = <span class="hljs-keyword">this</span>
+    <span class="hljs-keyword">this</span>.agentSet = agentSet
+    <span class="hljs-keyword">this</span>.model = agentSet.model
+    <span class="hljs-keyword">this</span>.world = agentSet.world
+    <span class="hljs-keyword">this</span>.links = agentSet.baseSet
+  }
+  init (<span class="hljs-keyword">from</span>, to) {
+    <span class="hljs-keyword">this</span>.end0 = <span class="hljs-keyword">from</span>
+    <span class="hljs-keyword">this</span>.end1 = to
+    <span class="hljs-keyword">from</span>.links.push(<span class="hljs-keyword">this</span>)
+    to.links.push(<span class="hljs-keyword">this</span>)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Remove this link from its agentset</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  die () {
+    <span class="hljs-keyword">this</span>.agentSet.remove(<span class="hljs-keyword">this</span>)
+    util.removeItem(<span class="hljs-keyword">this</span>.end0.links, <span class="hljs-keyword">this</span>)
+    util.removeItem(<span class="hljs-keyword">this</span>.end1.links, <span class="hljs-keyword">this</span>)
+  }
+
+  bothEnds () { <span class="hljs-keyword">return</span> [<span class="hljs-keyword">this</span>.end0, <span class="hljs-keyword">this</span>.end1] }
+  length () { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.end0.distance(<span class="hljs-keyword">this</span>.end1) }
+  otherEnd (turtle) { <span class="hljs-keyword">return</span> turtle === <span class="hljs-keyword">this</span>.end0 ? <span class="hljs-keyword">this</span>.end1 : <span class="hljs-keyword">this</span>.end0 }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Breed get/set mathods.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setBreed (breed) { breed.setBreed(<span class="hljs-keyword">this</span>) }
+  get breed () { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.agentSet }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> LinkProto</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

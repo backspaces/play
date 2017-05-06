@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>AscDataSet.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="AS.html">
+                  AS.js
+                </a>
+              
+                
+                <a class="source" href="AgentSet.html">
+                  AgentSet.js
+                </a>
+              
+                
+                <a class="source" href="Animator.html">
+                  Animator.js
+                </a>
+              
+                
+                <a class="source" href="AscDataSet.html">
+                  AscDataSet.js
+                </a>
+              
+                
+                <a class="source" href="Color.html">
+                  Color.js
+                </a>
+              
+                
+                <a class="source" href="ColorMap.html">
+                  ColorMap.js
+                </a>
+              
+                
+                <a class="source" href="DataSet.html">
+                  DataSet.js
+                </a>
+              
+                
+                <a class="source" href="DataSetIO.html">
+                  DataSetIO.js
+                </a>
+              
+                
+                <a class="source" href="Link.html">
+                  Link.js
+                </a>
+              
+                
+                <a class="source" href="Links.html">
+                  Links.js
+                </a>
+              
+                
+                <a class="source" href="Model.html">
+                  Model.js
+                </a>
+              
+                
+                <a class="source" href="Mouse.html">
+                  Mouse.js
+                </a>
+              
+                
+                <a class="source" href="OofA.html">
+                  OofA.js
+                </a>
+              
+                
+                <a class="source" href="Patch.html">
+                  Patch.js
+                </a>
+              
+                
+                <a class="source" href="Patches.html">
+                  Patches.js
+                </a>
+              
+                
+                <a class="source" href="RGBADataSet.html">
+                  RGBADataSet.js
+                </a>
+              
+                
+                <a class="source" href="RGBDataSet.html">
+                  RGBDataSet.js
+                </a>
+              
+                
+                <a class="source" href="SpriteSheet.html">
+                  SpriteSheet.js
+                </a>
+              
+                
+                <a class="source" href="Three.html">
+                  Three.js
+                </a>
+              
+                
+                <a class="source" href="Turtle.html">
+                  Turtle.js
+                </a>
+              
+                
+                <a class="source" href="Turtles.html">
+                  Turtles.js
+                </a>
+              
+                
+                <a class="source" href="glx.html">
+                  glx.js
+                </a>
+              
+                
+                <a class="source" href="util.html">
+                  util.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>AscDataSet.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> util <span class="hljs-keyword">from</span> <span class="hljs-string">'./util.js'</span>
+<span class="hljs-keyword">import</span> DataSet <span class="hljs-keyword">from</span> <span class="hljs-string">'./DataSet.js'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>An .asc GIS file: a text file with a header:</p>
+<pre><code>ncols <span class="hljs-number">195</span>
+nrows <span class="hljs-number">195</span>
+xllcorner <span class="hljs-number">-84.355652</span>
+yllcorner <span class="hljs-number">39.177963</span>
+cellsize <span class="hljs-number">0.000093</span>
+NODATA_value <span class="hljs-number">-9999</span>
+</code></pre><p>..followed by a ncols X nrows matrix of numbers</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AscDataSet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DataSet</span> </span>{
+  <span class="hljs-keyword">constructor</span> (ascString, Type = Array, options = {}) {
+    <span class="hljs-keyword">const</span> textData = ascString.split(<span class="hljs-string">'\n'</span>)
+    <span class="hljs-keyword">const</span> header = {}
+    util.repeat(<span class="hljs-number">6</span>, (i) =&gt; {
+      <span class="hljs-keyword">const</span> keyVal = textData[i].split(<span class="hljs-regexp">/\s+/</span>)
+      header[keyVal[<span class="hljs-number">0</span>].toLowerCase()] = <span class="hljs-built_in">parseFloat</span>(keyVal[<span class="hljs-number">1</span>])
+    })
+    <span class="hljs-keyword">const</span> data = []
+    util.repeat(header.nrows, (i) =&gt; {
+      <span class="hljs-keyword">const</span> nums = textData[<span class="hljs-number">6</span> + i].trim().split(<span class="hljs-string">' '</span>)
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> num <span class="hljs-keyword">of</span> nums)
+        data.push(<span class="hljs-built_in">parseFloat</span>(num))
+    })
+    <span class="hljs-keyword">super</span>(header.ncols, header.nrows, util.convertArray(data, Type))
+    <span class="hljs-keyword">this</span>.header = header
+    <span class="hljs-built_in">Object</span>.assign(<span class="hljs-keyword">this</span>, options)
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> AscDataSet</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

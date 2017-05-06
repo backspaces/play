@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Turtles.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="AS.html">
+                  AS.js
+                </a>
+              
+                
+                <a class="source" href="AgentSet.html">
+                  AgentSet.js
+                </a>
+              
+                
+                <a class="source" href="Animator.html">
+                  Animator.js
+                </a>
+              
+                
+                <a class="source" href="AscDataSet.html">
+                  AscDataSet.js
+                </a>
+              
+                
+                <a class="source" href="Color.html">
+                  Color.js
+                </a>
+              
+                
+                <a class="source" href="ColorMap.html">
+                  ColorMap.js
+                </a>
+              
+                
+                <a class="source" href="DataSet.html">
+                  DataSet.js
+                </a>
+              
+                
+                <a class="source" href="DataSetIO.html">
+                  DataSetIO.js
+                </a>
+              
+                
+                <a class="source" href="Link.html">
+                  Link.js
+                </a>
+              
+                
+                <a class="source" href="Links.html">
+                  Links.js
+                </a>
+              
+                
+                <a class="source" href="Model.html">
+                  Model.js
+                </a>
+              
+                
+                <a class="source" href="Mouse.html">
+                  Mouse.js
+                </a>
+              
+                
+                <a class="source" href="OofA.html">
+                  OofA.js
+                </a>
+              
+                
+                <a class="source" href="Patch.html">
+                  Patch.js
+                </a>
+              
+                
+                <a class="source" href="Patches.html">
+                  Patches.js
+                </a>
+              
+                
+                <a class="source" href="RGBADataSet.html">
+                  RGBADataSet.js
+                </a>
+              
+                
+                <a class="source" href="RGBDataSet.html">
+                  RGBDataSet.js
+                </a>
+              
+                
+                <a class="source" href="SpriteSheet.html">
+                  SpriteSheet.js
+                </a>
+              
+                
+                <a class="source" href="Three.html">
+                  Three.js
+                </a>
+              
+                
+                <a class="source" href="Turtle.html">
+                  Turtle.js
+                </a>
+              
+                
+                <a class="source" href="Turtles.html">
+                  Turtles.js
+                </a>
+              
+                
+                <a class="source" href="glx.html">
+                  glx.js
+                </a>
+              
+                
+                <a class="source" href="util.html">
+                  util.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>Turtles.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> util <span class="hljs-keyword">from</span> <span class="hljs-string">'./util.js'</span>
+<span class="hljs-keyword">import</span> AgentSet <span class="hljs-keyword">from</span> <span class="hljs-string">'./AgentSet.js'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>import SpriteSheet from ‘./SpriteSheet.js’</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> ColorMap <span class="hljs-keyword">from</span> <span class="hljs-string">'./ColorMap.js'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Turtles are the world other agentsets live on. They create a coord system
+from Model’s world values: size, minX, maxX, minY, maxY</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Turtles</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AgentSet</span> </span>{
+  <span class="hljs-keyword">constructor</span> (model, AgentProto, name, baseSet = null) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>AgentSet sets these variables:
+model, name, baseSet, world: model.world &amp; agentProto: new AgentProto</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">super</span>(model, AgentProto, name, baseSet)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Skip if an basic Array ctor or a breedSet. See AgentSet comments.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> model === <span class="hljs-string">'number'</span> || <span class="hljs-keyword">this</span>.isBreedSet()) <span class="hljs-keyword">return</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>this.world = model.world
+this.labels = [] // sparse array for labels
+this.spriteSheet = new SpriteSheet()
+this.colorMap = ColorMap.Basic16</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  }
+  create (num = <span class="hljs-number">1</span>, initFcn = <span class="hljs-function">(<span class="hljs-params">turtle</span>) =&gt;</span> {}) {
+    <span class="hljs-keyword">return</span> util.repeat(num, (i, a) =&gt; {
+      <span class="hljs-keyword">const</span> turtle = <span class="hljs-keyword">this</span>.add()
+      turtle.theta = util.randomFloat(<span class="hljs-built_in">Math</span>.PI * <span class="hljs-number">2</span>)
+      initFcn(turtle)
+      <span class="hljs-keyword">if</span> (!turtle.sprite)
+        turtle.setSprite(<span class="hljs-string">'default'</span>, ColorMap.Basic16.randomColor().css)
+      a.push(turtle)
+    })
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>clear () {
+  while (this.any()) this.last.die() // die a turtle method
+}</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Return an array of this breed within the array of patchs</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  inPatches (patches) {
+    <span class="hljs-keyword">let</span> array = <span class="hljs-keyword">new</span> AgentSet(<span class="hljs-number">0</span>) <span class="hljs-comment">// []</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> p <span class="hljs-keyword">of</span> patches) array.push(...p.turtlesHere())
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isBreedSet()) array = array.filter(<span class="hljs-function">(<span class="hljs-params">a</span>) =&gt;</span> a.agentSet === <span class="hljs-keyword">this</span>)
+    <span class="hljs-keyword">return</span> array
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Return an array of turtles/breeds within the patchRect, dx/y integers
+Note: will return turtle too. Also slightly inaccurate due to being
+patch based, not turtle based.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  inPatchRect (turtle, dx, dy = dx, meToo = <span class="hljs-literal">false</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>meToo: true for patches, could have several turtles on patch</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">const</span> patches = <span class="hljs-keyword">this</span>.model.patches.patchRect(turtle.patch, dx, dy, <span class="hljs-literal">true</span>)
+    <span class="hljs-keyword">const</span> aSet = <span class="hljs-keyword">this</span>.inPatches(patches)
+    <span class="hljs-keyword">if</span> (!meToo) util.removeItem(aSet, turtle) <span class="hljs-comment">// don't use aSet.remove: breeds</span>
+    <span class="hljs-keyword">return</span> aSet <span class="hljs-comment">// this.inPatches(patches)</span>
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Return the members of this agentset that are within radius distance
+from me, using a patch rect.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  inRadius (turtle, radius, meToo = <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">const</span> aSet = <span class="hljs-keyword">this</span>.inPatchRect(turtle, radius, radius, <span class="hljs-literal">true</span>)
+    <span class="hljs-keyword">return</span> aSet.inRadius(turtle, radius, meToo)
+  }
+  inCone (turtle, radius, coneAngle, x0, y0, meToo = <span class="hljs-literal">false</span>) {
+    <span class="hljs-keyword">const</span> aSet = <span class="hljs-keyword">this</span>.inPatchRect(turtle, radius, radius, <span class="hljs-literal">true</span>)
+    <span class="hljs-keyword">return</span> aSet.inCone(turtle, radius, coneAngle, turtle.theta, x0, y0, meToo)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Circle Layout: position the turtles in the list in an equally
+spaced circle of the given radius, with the initial turtle
+at the given start angle (default to pi/2 or “up”) and in the
++1 or -1 direction (counter clockwise or clockwise)
+defaulting to -1 (clockwise).</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  layoutCircle (
+    list, radius, center = [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>], startAngle = <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2</span>, direction = <span class="hljs-number">-1</span>) {
+    <span class="hljs-keyword">const</span> dTheta = <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI / list.length
+    <span class="hljs-keyword">const</span> [x0, y0] = center
+    util.forEach(list, (turtle, i) =&gt; {
+      turtle.setxy(x0, y0)
+      turtle.theta = startAngle + (direction * dTheta * i)
+      turtle.forward(radius)
+    })
+  }
+
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Turtles</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

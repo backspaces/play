@@ -1,0 +1,41 @@
+<html>
+<head>
+  <title>asx</title>
+  <script src="../libs/dat.gui.min.js"></script>
+  <script src="../libs/pako.min.js"></script>
+  <script src="../libs/stats.min.js"></script>
+
+  <script src="../dist/AS.js"></script>
+
+  <script src="../libs/three.min.js"></script>
+  <script src="../libs/OrbitControls.js"></script>
+  <script src="../libs/FlyControls.js"></script>
+  <script src="../libs/FirstPersonControls.js"></script>
+</head>
+<body>
+  <script>
+    let app = document.location.search.substring(1) || 'scripts/diffuse'
+    // trailing / problem with SimpleHTTPServer
+    // https://github.com/backspaces/asx/issues/11
+    if (app.endsWith('/')) app = app.slice(0, -1)
+    let [appDir, appName] = app.split('/')
+    if (appName === undefined) {
+      console.log('Note: app path is "dir/name", dir is "scripts" or "src"')
+      console.log('..Using "scripts" as default')
+      appName = appDir
+      appDir = 'scripts'
+    }
+    const loc = `./${appDir}/${appName}.js`
+    console.log('running:', loc, 'dir:', appDir, 'name:', appName + '.js')
+    document.title = `asx:${appName}`
+
+    switch (appDir) {
+      case 'scripts': AS.util.setScript(loc); break
+      case 'src': AS.util.setScript(loc, {type: 'module'}); break
+      default: throw `Oops: ${appDir} not valid dir`
+    }
+
+  </script>
+  <div id='modeldiv'> </div>
+</body>
+</html>

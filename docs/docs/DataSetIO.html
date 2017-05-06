@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>DataSetIO.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="AS.html">
+                  AS.js
+                </a>
+              
+                
+                <a class="source" href="AgentSet.html">
+                  AgentSet.js
+                </a>
+              
+                
+                <a class="source" href="Animator.html">
+                  Animator.js
+                </a>
+              
+                
+                <a class="source" href="AscDataSet.html">
+                  AscDataSet.js
+                </a>
+              
+                
+                <a class="source" href="Color.html">
+                  Color.js
+                </a>
+              
+                
+                <a class="source" href="ColorMap.html">
+                  ColorMap.js
+                </a>
+              
+                
+                <a class="source" href="DataSet.html">
+                  DataSet.js
+                </a>
+              
+                
+                <a class="source" href="DataSetIO.html">
+                  DataSetIO.js
+                </a>
+              
+                
+                <a class="source" href="Link.html">
+                  Link.js
+                </a>
+              
+                
+                <a class="source" href="Links.html">
+                  Links.js
+                </a>
+              
+                
+                <a class="source" href="Model.html">
+                  Model.js
+                </a>
+              
+                
+                <a class="source" href="Mouse.html">
+                  Mouse.js
+                </a>
+              
+                
+                <a class="source" href="OofA.html">
+                  OofA.js
+                </a>
+              
+                
+                <a class="source" href="Patch.html">
+                  Patch.js
+                </a>
+              
+                
+                <a class="source" href="Patches.html">
+                  Patches.js
+                </a>
+              
+                
+                <a class="source" href="RGBADataSet.html">
+                  RGBADataSet.js
+                </a>
+              
+                
+                <a class="source" href="RGBDataSet.html">
+                  RGBDataSet.js
+                </a>
+              
+                
+                <a class="source" href="SpriteSheet.html">
+                  SpriteSheet.js
+                </a>
+              
+                
+                <a class="source" href="Three.html">
+                  Three.js
+                </a>
+              
+                
+                <a class="source" href="Turtle.html">
+                  Turtle.js
+                </a>
+              
+                
+                <a class="source" href="Turtles.html">
+                  Turtles.js
+                </a>
+              
+                
+                <a class="source" href="glx.html">
+                  glx.js
+                </a>
+              
+                
+                <a class="source" href="util.html">
+                  util.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>DataSetIO.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Export/Import DataSets</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> DataSet <span class="hljs-keyword">from</span> <span class="hljs-string">'./DataSet.js'</span>
+<span class="hljs-keyword">import</span> util <span class="hljs-keyword">from</span> <span class="hljs-string">'./util.js'</span>
+
+<span class="hljs-comment">/* global LZMA, pako */</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>import LZMA from ‘../libs/lzma.js’
+import pako from ‘../libs/pako.min.js’</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">const</span> lzma = <span class="hljs-keyword">new</span> LZMA() <span class="hljs-comment">// new LZMA('../libs/lzma_worker.js')</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>const lzma = new LZMA()</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">const</span> DataSetIO = {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>JSON import/export. The JSON returned looks like:</p>
+<pre><code>{
+  <span class="hljs-attr">width</span>: dataset.width,
+  <span class="hljs-attr">height</span>: dataset.height,
+  <span class="hljs-attr">data</span>: string, <span class="hljs-comment">// json or base64 string of DataSet data</span>
+  datatype: string, <span class="hljs-comment">// name of data array type: TypedArray or Array</span>
+  type: string, <span class="hljs-comment">// dataset class name</span>
+  name: string, <span class="hljs-comment">// identifier of this dataset,</span>
+  compression: string, <span class="hljs-comment">// 'none', 'base64', 'zip', 'lzma',</span>
+  level: num <span class="hljs-comment">// 0-9, 0 least, 9 most compressed</span>
+}
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  compressionNames: [<span class="hljs-string">'none'</span>, <span class="hljs-string">'base64'</span>, <span class="hljs-string">'zip'</span>, <span class="hljs-string">'lzma'</span>],
+  checkCompression (compression) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>if (this.compressionNames.indexOf(compression) &lt; 0)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.compressionNames.includes(compression))
+      util.error(<span class="hljs-string">`DataSetIO: illegal compression <span class="hljs-subst">${compression}</span>`</span>)
+  },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>The lzma compressor uses a webworker, therefore async</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  lzmaCompressPromise (dataset, level = <span class="hljs-number">9</span>) {
+    <span class="hljs-keyword">const</span> dataUint8 = util.arrayToBuffer(dataset.data)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+      lzma.compress(dataUint8, level, (result, error) =&gt; {
+        <span class="hljs-keyword">if</span> (error) reject(error)
+        <span class="hljs-keyword">const</span> uint8array = result.buffer ? result : <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(result)
+        <span class="hljs-keyword">const</span> json = <span class="hljs-keyword">this</span>.toJsonString(dataset, uint8array, <span class="hljs-string">'lzma'</span>, level)
+        resolve(json)
+      })
+    })
+  },
+  lzmaDecompressPromise (jsonObj) {
+    <span class="hljs-keyword">const</span> {width, height, data, datatype} = jsonObj
+    <span class="hljs-keyword">const</span> dataUint8 = util.base64ToBuffer(data)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+      lzma.decompress(dataUint8, (result, error) =&gt; {
+        <span class="hljs-keyword">if</span> (error) reject(error)
+        <span class="hljs-keyword">const</span> uint8array = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(result)
+        <span class="hljs-keyword">const</span> data = util.bufferToArray(uint8array, <span class="hljs-built_in">window</span>[datatype])
+        resolve(<span class="hljs-keyword">new</span> DataSet(width, height, data))
+      })
+    })
+  },
+
+  toJson (dataset, compression = <span class="hljs-string">'none'</span>, level = <span class="hljs-number">9</span>) {
+    <span class="hljs-keyword">this</span>.checkCompression(compression)
+
+    <span class="hljs-keyword">if</span> (compression === <span class="hljs-string">'lzma'</span>)
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.lzmaCompressPromise(dataset, level)
+    <span class="hljs-keyword">if</span> (compression === <span class="hljs-string">'none'</span>)
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.toJsonString(dataset, dataset.data, compression, level)
+
+    <span class="hljs-keyword">let</span> uint8array = util.arrayToBuffer(dataset.data)
+    <span class="hljs-keyword">if</span> (compression === <span class="hljs-string">'zip'</span>)
+      uint8array = pako.deflate(uint8array, {level})
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.toJsonString(dataset, uint8array, compression, level)
+  },
+  toDataSet (json) {
+    <span class="hljs-keyword">const</span> jsonObj = <span class="hljs-built_in">JSON</span>.parse(json)
+    <span class="hljs-keyword">const</span> {compression, datatype, width, height} = jsonObj
+    <span class="hljs-keyword">this</span>.checkCompression(compression)
+    <span class="hljs-keyword">let</span> data = jsonObj.data</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>if (util.typeOf(data) === ‘string’) data = JSON.parse(data)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+    <span class="hljs-keyword">if</span> (compression === <span class="hljs-string">'lzma'</span>)
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.lzmaDecompressPromise(jsonObj)
+    <span class="hljs-keyword">if</span> (compression === <span class="hljs-string">'none'</span>)
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DataSet(width, height,
+        util.convertArray(data, <span class="hljs-built_in">window</span>[datatype]))
+
+    <span class="hljs-keyword">let</span> uint8array = util.base64ToBuffer(data)
+    <span class="hljs-keyword">if</span> (compression === <span class="hljs-string">'zip'</span>)
+      uint8array = pako.inflate(uint8array)
+    data = util.bufferToArray(uint8array, <span class="hljs-built_in">window</span>[datatype])
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DataSet(width, height, data)
+  },
+  toJsonString (dataset, data, compression, level) {
+    <span class="hljs-keyword">const</span> jsonObj = <span class="hljs-keyword">this</span>.toJsonObject(dataset, data, compression, level)
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(jsonObj)
+  },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Create a legal dataset JSON object, defaulting to non-compressed dataset.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  toJsonObject (dataset, data = dataset.data, compression = <span class="hljs-string">'none'</span>, level = <span class="hljs-number">9</span>) {
+    data = compression === <span class="hljs-string">'none'</span>
+      ? util.convertArray(data, <span class="hljs-built_in">Array</span>)
+      : util.bufferToBase64(data)
+    <span class="hljs-keyword">const</span> jsonObj = {
+      <span class="hljs-attr">width</span>: dataset.width,
+      <span class="hljs-attr">height</span>: dataset.height,
+      <span class="hljs-attr">datatype</span>: dataset.datatype().name,
+      <span class="hljs-attr">type</span>: dataset.type().name,
+      <span class="hljs-attr">name</span>: dataset.getName(),
+      <span class="hljs-attr">compression</span>: compression,
+      <span class="hljs-attr">level</span>: level,
+      <span class="hljs-attr">data</span>: data
+    }
+    <span class="hljs-keyword">return</span> jsonObj
+  },
+  isLZMA (json) { <span class="hljs-keyword">return</span> json.search(<span class="hljs-regexp">/compression":"lzma/</span>) },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>IndexedDB uses the <a href="https://goo.gl/x8H9HK">Structured Clone Algorithm</a>.
+DataSets can be directly stored and retrieved, they satisfy
+the SCA requirements.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  toIndexedDB (dataset) {
+    <span class="hljs-keyword">return</span> dataset <span class="hljs-comment">// place holder for IDB sugar if needed</span>
+  }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> DataSetIO</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

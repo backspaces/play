@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>SpriteSheet.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="AS.html">
+                  AS.js
+                </a>
+              
+                
+                <a class="source" href="AgentSet.html">
+                  AgentSet.js
+                </a>
+              
+                
+                <a class="source" href="Animator.html">
+                  Animator.js
+                </a>
+              
+                
+                <a class="source" href="AscDataSet.html">
+                  AscDataSet.js
+                </a>
+              
+                
+                <a class="source" href="Color.html">
+                  Color.js
+                </a>
+              
+                
+                <a class="source" href="ColorMap.html">
+                  ColorMap.js
+                </a>
+              
+                
+                <a class="source" href="DataSet.html">
+                  DataSet.js
+                </a>
+              
+                
+                <a class="source" href="DataSetIO.html">
+                  DataSetIO.js
+                </a>
+              
+                
+                <a class="source" href="Link.html">
+                  Link.js
+                </a>
+              
+                
+                <a class="source" href="Links.html">
+                  Links.js
+                </a>
+              
+                
+                <a class="source" href="Model.html">
+                  Model.js
+                </a>
+              
+                
+                <a class="source" href="Mouse.html">
+                  Mouse.js
+                </a>
+              
+                
+                <a class="source" href="OofA.html">
+                  OofA.js
+                </a>
+              
+                
+                <a class="source" href="Patch.html">
+                  Patch.js
+                </a>
+              
+                
+                <a class="source" href="Patches.html">
+                  Patches.js
+                </a>
+              
+                
+                <a class="source" href="RGBADataSet.html">
+                  RGBADataSet.js
+                </a>
+              
+                
+                <a class="source" href="RGBDataSet.html">
+                  RGBDataSet.js
+                </a>
+              
+                
+                <a class="source" href="SpriteSheet.html">
+                  SpriteSheet.js
+                </a>
+              
+                
+                <a class="source" href="Three.html">
+                  Three.js
+                </a>
+              
+                
+                <a class="source" href="Turtle.html">
+                  Turtle.js
+                </a>
+              
+                
+                <a class="source" href="Turtles.html">
+                  Turtles.js
+                </a>
+              
+                
+                <a class="source" href="glx.html">
+                  glx.js
+                </a>
+              
+                
+                <a class="source" href="util.html">
+                  util.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>SpriteSheet.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> util <span class="hljs-keyword">from</span> <span class="hljs-string">'./util.js'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Sprites are images/drawings within a sprite-sheet.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SpriteSheet</span> </span>{
+  <span class="hljs-keyword">constructor</span> (spriteSize = 64, spritesPerRow = 16, usePowerOf2 = true) {
+    <span class="hljs-built_in">Object</span>.assign(<span class="hljs-keyword">this</span>, {spriteSize, <span class="hljs-attr">cols</span>: spritesPerRow, usePowerOf2})
+    <span class="hljs-keyword">this</span>.rows = <span class="hljs-number">1</span>
+    <span class="hljs-keyword">this</span>.nextCol = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">this</span>.nextRow = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">this</span>.sprites = {}
+    <span class="hljs-keyword">this</span>.paths = <span class="hljs-built_in">Object</span>.assign({}, paths) <span class="hljs-comment">// installPaths()</span>
+    <span class="hljs-keyword">if</span> (usePowerOf2) <span class="hljs-keyword">this</span>.checkPowerOf2()
+    <span class="hljs-keyword">this</span>.ctx = util.createCtx(<span class="hljs-keyword">this</span>.width, <span class="hljs-keyword">this</span>.height)
+    <span class="hljs-keyword">this</span>.texture = <span class="hljs-literal">null</span> <span class="hljs-comment">// THREE use optional</span>
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>width &amp; height in pixels</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  get width () { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.spriteSize * <span class="hljs-keyword">this</span>.cols }
+  get height () { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.spriteSize * <span class="hljs-keyword">this</span>.rows }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>next col, row in pixels</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  get nextX () { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.spriteSize * <span class="hljs-keyword">this</span>.nextCol }
+  get nextY () { <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.spriteSize * <span class="hljs-keyword">this</span>.nextRow }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>id = number of sprites</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  get id () { <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.sprites).length }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Return standard agentscript quad:</p>
+<pre><code> 3   2
+ -----
+ |  /|
+ | / |
+ |/  |
+ -----
+ 0   1
+</code></pre><p>I.e. botLeft, botRight, topRight, topLeft</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  getUVs (sprite) {
+    <span class="hljs-keyword">const</span> {row, col} = sprite
+    <span class="hljs-keyword">const</span> {rows, cols} = <span class="hljs-keyword">this</span>
+    <span class="hljs-keyword">const</span> x0 = col / cols
+    <span class="hljs-keyword">const</span> y0 = row / rows
+    <span class="hljs-keyword">const</span> x1 = (col + <span class="hljs-number">1</span>) / cols
+    <span class="hljs-keyword">const</span> y1 = (row + <span class="hljs-number">1</span>) / rows</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>return [[x0, y1], [x1, y1], [x1, y0], [x0, y0]]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> [x0, y1, x1, y1, x1, y0, x0, y0]
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Return uv’s object: {topLeft, topRight, botLeft, botRight}
+getUVsObj (sprite) { // REMIND
+  const uvs = this.getUVs
+  return {
+    botLeft: uvs[0],
+    botRight: uvs[1],
+    topRight: uvs[2],
+    topLeft: uvs[3]
+  }
+}</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  checkPowerOf2 () {
+    <span class="hljs-keyword">const</span> {width, height} = <span class="hljs-keyword">this</span>
+    <span class="hljs-keyword">if</span> (!(util.isPowerOf2(width) &amp;&amp; util.isPowerOf2(height)))
+      util.error(<span class="hljs-string">`SpriteSheet non power of 2: <span class="hljs-subst">${width}</span>x<span class="hljs-subst">${height}</span>`</span>)
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>REMIND: figure out how to have img be a path string &amp; return its sprite
+spriteName (name, color1 = null, color2 = null) {
+  name = name.replace(/^.*\//, ‘’)
+  return name.replace(/./, ‘img’)
+}
+addImagePromise (url, fcn = (sprite) =&gt; {}) {
+  util.imagePromise(url).then((img) =&gt; { fcn(this.addImage(img)) })
+}</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  addImage (img) {
+    <span class="hljs-keyword">let</span> name = img.src
+    name = name.replace(<span class="hljs-regexp">/^.*\//</span>, <span class="hljs-string">''</span>)
+    name = name.replace(<span class="hljs-regexp">/\./</span>, <span class="hljs-string">'img'</span>)
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.sprites[name]) <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.sprites[name]
+    <span class="hljs-keyword">this</span>.checkSheetSize() <span class="hljs-comment">// Resize ctx if nextRow &gt; rows</span>
+    <span class="hljs-keyword">const</span> [x, y, size] = [<span class="hljs-keyword">this</span>.nextX, <span class="hljs-keyword">this</span>.nextY, <span class="hljs-keyword">this</span>.spriteSize]
+    <span class="hljs-keyword">this</span>.ctx.drawImage(img, x, y, size, size)
+    <span class="hljs-keyword">const</span> id = <span class="hljs-keyword">this</span>.id <span class="hljs-comment">// Object.keys(this.sprites).length</span>
+    <span class="hljs-keyword">const</span> {<span class="hljs-attr">nextRow</span>: row, <span class="hljs-attr">nextCol</span>: col} = <span class="hljs-keyword">this</span>
+    <span class="hljs-keyword">const</span> sprite = {id, name, x, y, row, col, size, <span class="hljs-attr">sheet</span>: <span class="hljs-keyword">this</span>}
+    sprite.uvs = <span class="hljs-keyword">this</span>.getUVs(sprite)
+    <span class="hljs-keyword">this</span>.sprites[name] = sprite
+    <span class="hljs-keyword">this</span>.incrementRowCol()
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.texture) <span class="hljs-keyword">this</span>.texture.needsUpdate = <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">return</span> sprite
+  }
+  addDrawing (drawFcn, fillColor = <span class="hljs-string">'red'</span>, strokeColor = <span class="hljs-string">'black'</span>, useHelpers = <span class="hljs-literal">true</span>) {
+    <span class="hljs-keyword">const</span> img = <span class="hljs-keyword">this</span>.createImage(drawFcn, fillColor, strokeColor, useHelpers)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.addImage(img) <span class="hljs-comment">// return sprite</span>
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>getSprite (name) { return this.sprites[name] }
+Resize ctx if nextRow &gt; rows</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  incrementRowCol () {
+    <span class="hljs-keyword">this</span>.nextCol += <span class="hljs-number">1</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.nextCol &lt; <span class="hljs-keyword">this</span>.cols) <span class="hljs-keyword">return</span>
+    <span class="hljs-keyword">this</span>.nextCol = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">this</span>.nextRow += <span class="hljs-number">1</span>
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Resize ctx if too small for next row/col</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  checkSheetSize () {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.nextRow === <span class="hljs-keyword">this</span>.rows) { <span class="hljs-comment">// this.nextCol should be 0</span>
+      <span class="hljs-keyword">this</span>.rows = (<span class="hljs-keyword">this</span>.usePowerOf2) ? <span class="hljs-keyword">this</span>.rows * <span class="hljs-number">2</span> : <span class="hljs-keyword">this</span>.rows + <span class="hljs-number">1</span>
+      util.resizeCtx(<span class="hljs-keyword">this</span>.ctx, <span class="hljs-keyword">this</span>.width, <span class="hljs-keyword">this</span>.height)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Recalculate existing sprite uvs.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      util.forEach(<span class="hljs-keyword">this</span>.sprites, (sprite) =&gt; { sprite.uvs = <span class="hljs-keyword">this</span>.getUVs(sprite) })
+    }
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Create a sprite image. See <a href="https://goo.gl/uBwxMq">Drawing shapes with canvas</a></p>
+<p>The drawFcn args: drawFcn(ctx).
+The ctx fill &amp; stroke styles are pre-filled w/ fillColor, strokeColor.</p>
+<p>If useHelpers:</p>
+<ul>
+<li>Transform to -1 -&gt; +1 coords</li>
+<li>drawFcn is surrounded with ctx beginPath &amp; closePath, fill fcns.</li>
+</ul>
+<p>If not using helpers, ctx.canvas.width/height is the size of drawing,
+top/left canvas coordinates.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  createImage (drawFcn, fillColor, strokeColor = <span class="hljs-string">'black'</span>, useHelpers = <span class="hljs-literal">true</span>) {
+    <span class="hljs-keyword">const</span> ctx = util.createCtx(<span class="hljs-keyword">this</span>.spriteSize, <span class="hljs-keyword">this</span>.spriteSize)
+    ctx.fillStyle = fillColor
+    ctx.strokeStyle = strokeColor
+    <span class="hljs-keyword">if</span> (useHelpers) {
+      ctx.scale(<span class="hljs-keyword">this</span>.spriteSize / <span class="hljs-number">2</span>, <span class="hljs-keyword">this</span>.spriteSize / <span class="hljs-number">2</span>)
+      ctx.translate(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)
+      ctx.beginPath()
+    }
+
+    <span class="hljs-keyword">if</span> (util.isString(drawFcn)) {
+      <span class="hljs-keyword">this</span>.paths[drawFcn](ctx)
+    } <span class="hljs-keyword">else</span> {
+      drawFcn(ctx)
+    }
+
+    <span class="hljs-keyword">if</span> (useHelpers) {
+      ctx.closePath()
+      ctx.fill()
+    }
+
+    <span class="hljs-keyword">const</span> name = drawFcn.name || drawFcn
+    ctx.canvas.src = <span class="hljs-string">`<span class="hljs-subst">${name}</span><span class="hljs-subst">${fillColor}</span>`</span>
+    <span class="hljs-keyword">return</span> ctx.canvas
+  }
+  installDrawing (fcn, name = fcn.name) { <span class="hljs-keyword">this</span>.paths[name] = fcn }
+
+}
+
+<span class="hljs-keyword">const</span> paths = {
+  poly (ctx, points) {
+    points.forEach(<span class="hljs-function">(<span class="hljs-params">pt, i</span>) =&gt;</span> {
+      <span class="hljs-keyword">if</span> (i === <span class="hljs-number">0</span>) ctx.moveTo(pt[<span class="hljs-number">0</span>], pt[<span class="hljs-number">1</span>])
+      <span class="hljs-keyword">else</span> ctx.lineTo(pt[<span class="hljs-number">0</span>], pt[<span class="hljs-number">1</span>])
+    })
+  },
+  <span class="hljs-keyword">default</span> (ctx) { <span class="hljs-keyword">this</span>.dart(ctx) },
+  arrow (ctx) {
+    <span class="hljs-keyword">this</span>.poly(ctx,
+      [[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>], [<span class="hljs-number">-1</span>, <span class="hljs-number">0.4</span>], [<span class="hljs-number">-1</span>, <span class="hljs-number">-0.4</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">-0.4</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>]])
+  },
+  bug (ctx) {
+    ctx.lineWidth = <span class="hljs-number">0.1</span>
+    <span class="hljs-keyword">this</span>.poly(ctx, [[<span class="hljs-number">0.8</span>, <span class="hljs-number">0.45</span>], [<span class="hljs-number">0.4</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0.8</span>, <span class="hljs-number">-0.45</span>]])
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.arc(<span class="hljs-number">0.24</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.26</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI)
+    ctx.arc(<span class="hljs-number">-0.1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.26</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI)
+    ctx.arc(<span class="hljs-number">-0.54</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI)
+  },
+  circle (ctx) { ctx.arc(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI) },
+  dart (ctx) { <span class="hljs-keyword">this</span>.poly(ctx, [[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">-1</span>, <span class="hljs-number">0.8</span>], [<span class="hljs-number">-0.5</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">-1</span>, <span class="hljs-number">-0.8</span>]]) },
+  frame (ctx) {
+    <span class="hljs-keyword">const</span> inset = <span class="hljs-number">0.4</span>
+    ctx.fillRect(<span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+    ctx.fill()
+    ctx.clearRect(<span class="hljs-number">-1</span> + inset, <span class="hljs-number">-1</span> + inset, <span class="hljs-number">2</span> - (<span class="hljs-number">2</span> * inset), <span class="hljs-number">2</span> - (<span class="hljs-number">2</span> * inset))
+  },
+  frame2 (ctx) {
+    <span class="hljs-keyword">const</span> inset = <span class="hljs-number">0.4</span>
+    ctx.fillRect(<span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+    ctx.fill()
+    ctx.fillStyle = ctx.strokeStyle
+    ctx.fillRect(<span class="hljs-number">-1</span> + inset, <span class="hljs-number">-1</span> + inset, <span class="hljs-number">2</span> - (<span class="hljs-number">2</span> * inset), <span class="hljs-number">2</span> - (<span class="hljs-number">2</span> * inset))
+  },
+  person (ctx) {
+    <span class="hljs-keyword">this</span>.poly(ctx, [ [<span class="hljs-number">0.3</span>, <span class="hljs-number">-0.4</span>], [<span class="hljs-number">0.6</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0.25</span>, <span class="hljs-number">0.2</span>], [<span class="hljs-number">0.25</span>, <span class="hljs-number">-0.1</span>],
+    [<span class="hljs-number">0.2</span>, <span class="hljs-number">0.3</span>], [<span class="hljs-number">0.5</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">0.1</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>],
+    [<span class="hljs-number">-0.1</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">-0.5</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">-0.2</span>, <span class="hljs-number">0.3</span>], [<span class="hljs-number">-0.25</span>, <span class="hljs-number">-0.1</span>],
+    [<span class="hljs-number">-0.25</span>, <span class="hljs-number">0.2</span>], [<span class="hljs-number">-0.6</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">-0.3</span>, <span class="hljs-number">-0.4</span>]])
+    ctx.closePath()
+    ctx.arc(<span class="hljs-number">0</span>, <span class="hljs-number">-0.7</span>, <span class="hljs-number">0.3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI)
+  },
+  ring (ctx) { <span class="hljs-comment">// transparent</span>
+    <span class="hljs-keyword">const</span> [rOuter, rInner] = [<span class="hljs-number">1</span>, <span class="hljs-number">0.6</span>]
+    ctx.arc(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, rOuter, <span class="hljs-number">0</span>, <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI, <span class="hljs-literal">false</span>)
+    ctx.lineTo(rInner, <span class="hljs-number">0</span>)
+    ctx.arc(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, rInner, <span class="hljs-number">0</span>, <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI, <span class="hljs-literal">true</span>)
+  },
+  ring2 (ctx) { <span class="hljs-comment">// fileStyle is outer color, strokeStyle inner color</span>
+    <span class="hljs-keyword">const</span> [rOuter, rInner] = [<span class="hljs-number">1</span>, <span class="hljs-number">0.6</span>]
+    ctx.arc(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, rOuter, <span class="hljs-number">0</span>, <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI) <span class="hljs-comment">// x, y, r, ang0, ang1, cclockwise</span>
+    ctx.closePath()
+    ctx.fill()
+    ctx.beginPath()
+    ctx.fillStyle = ctx.strokeStyle
+    ctx.arc(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, rInner, <span class="hljs-number">0</span>, <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI) <span class="hljs-comment">// x, y, r, ang0, ang1, cclockwise</span>
+  },
+  square (ctx) { ctx.fillRect(<span class="hljs-number">-1</span>, <span class="hljs-number">-1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>) },
+  triangle (ctx) { <span class="hljs-keyword">this</span>.poly(ctx, [[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">-1</span>, <span class="hljs-number">-0.8</span>], [<span class="hljs-number">-1</span>, <span class="hljs-number">0.8</span>]]) }
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> SpriteSheet</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
